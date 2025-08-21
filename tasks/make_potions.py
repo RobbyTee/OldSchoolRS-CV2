@@ -131,4 +131,5 @@ class MakePotion:
                 return True
 
             elif self.state == MakeStates.FAILED:
+                press('esc')
                 return False
