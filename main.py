@@ -2,12 +2,13 @@ import random
 
 from config import (
     BIRDHOUSE_RUN, HERB_RUN, 
-    MAHOGANY_TREES, FUNGUS, PICKPOCKET,
+    MAHOGANY_TREES, FUNGUS, PICKPOCKET, POTIONS,
     START, END, DO_RUNS
 )
 from tasks.birdhouse_run import BirdhouseRun
 from tasks.fungus import Fungus
 from tasks.mahogany_logs import ChopMahoganyTrees
+from tasks.make_potions import MakePotion
 from tasks.master_farmer import Pickpocket
 from tasks.farm_run import FarmRun
 from runelite_library.check_charges import log_use
@@ -115,7 +116,9 @@ def main():
             task_registry["Fungus"] = Fungus
         if PICKPOCKET:
             task_registry["Pickpocket Master Farmer"] = Pickpocket
-        
+        if POTIONS:
+            task_registry["Potions"] = MakePotion
+
         if task_registry:
             with open("utils\\last_task", "r") as file:
                 last_task = file.read().strip()
@@ -132,7 +135,7 @@ def main():
             for name, cls in task_registry.items():
                 if cls == choice:
                     print(f"{now}: Starting {name}")
-                    with open("utils\\last_task", "r") as file:
+                    with open("utils\\last_task", "w") as file:
                         file.write(name)
             
             task = choice()

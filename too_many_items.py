@@ -40,6 +40,14 @@ class Items:
     magic_logs = r + "magic_logs.png"
     redwood_logs = r + ""
 
+    # Herbs
+    clean_ranarr = r + "clean_ranarr.png"
+    clean_avanatoe = r + "clean_avantoe.png"
+    clean_kwuarm = r + "clean_kwuarm.png"
+    clean_snapdragon = r + "clean_snapdragon.png"
+
+    vial_of_water = r + "vial_of_water.png"
+
 class Bank:
     """
     Banks seen across the world of Gielinor and the different interfaces
@@ -72,7 +80,9 @@ class Bank:
 
     # Misc Bank
     bank_pin_screen = r + "bank_pin_screen.png"
+    withdraw_14 = r + "withdraw_14.png"
     withdraw_40 = r + "withdraw_40.png"
+    withdraw_x = r + "withdraw_x.png"
     deposit_inventory = r + "deposit_inventory.png"
     deposit_equipment = r + "deposit_equipment.png"
 

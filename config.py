@@ -4,7 +4,7 @@ BANK_PIN = "xxxx"  # Replace with your actual bank pin as a string of 4 digits
 
 # BEDTIME
 ## The times between which the script will "sleep".
-START = 9
+START = 21
 END = 5
 ## Do you still want to do birdhouse and farm runs?
 DO_RUNS = True
@@ -16,8 +16,9 @@ BIRDHOUSE_RUN = True
 HERB_RUN = True
 ## AFK Tasks
 MAHOGANY_TREES = False
-FUNGUS = True
+FUNGUS = False
 PICKPOCKET = False
+POTIONS = True
 
 
 # DIARIES
@@ -49,6 +50,14 @@ LOGS = "magic"
     # Farming Guild
 MAGIC_SECATEURS = True
 RAKE = False
+
+
+# MAKE POTIONS
+## Makes unfinished potions for now.
+RANARR = True
+AVANTOE = True
+KWUARM = True
+SNAPDRAGON = True
 
 
 # BANK SETUP
