@@ -1,3 +1,4 @@
 # Ignore the config file
 config.py
-
+__pycache__
+*.pyc
