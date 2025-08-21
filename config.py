@@ -1,5 +1,5 @@
 # Bank Pin
-BANK_PIN = "xxxx"  # Replace with your actual bank pin as a string of 4 digits
+BANK_PIN = "1214"  # Replace with your actual bank pin as a string of 4 digits
 
 
 # TASKS

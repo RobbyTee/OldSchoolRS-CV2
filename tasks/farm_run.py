@@ -279,22 +279,29 @@ class FarmRun:
                 self.transition_state(FarmStates.CHECK_STATUS_OF_TELEPORTS)
             
             elif self.state == FarmStates.CHECK_STATUS_OF_TELEPORTS:
-                # cloak_max_charges = 3
-                # ardy_cloak = check_charges('ardougne_cloak')
-                # ardougne_cloak = False
-                # if ardy_cloak < cloak_max_charges:
-                #     ardougne_cloak = True
-                #     log_event("Using Ardougne Cloak.")
+                if ARDOUGNE_CLOAK:
+                    ardy_cloak = check_charges('ardougne_cloak')
+                    if ardy_cloak < CLOAK_MAX_USES:
+                        log_event("Ardougne Cloak has low charges.")
+                        ardougne_cloak = False
+                    else:
+                        log_event("Ardougne Cloak is ready to use.")
+                        ardougne_cloak = True
+                else:
+                    ardougne_cloak = False
                 
-                # ring_max_charges = 3
-                # ring = check_charges('explorers_ring')
-                # explorers_ring = False
-                # if ring < ring_max_charges:
-                #     explorers_ring = True
-                #     log_event("Using Explorers Ring")
-                
-                ardougne_cloak = False
-                explorers_ring = False
+                if EXPLORERS_RING:
+                    ring = check_charges('explorers_ring')
+                    explorers_ring = False
+                    if ring < RING_MAX_USES:
+                        explorers_ring = True
+                        log_event("Using Explorers Ring")
+                    else:
+                        log_event("Explorers Ring has low charges.")
+                        explorers_ring = False
+                else:
+                    explorers_ring = False
+
                 self.transition_state(FarmStates.OPEN_BANK)
 
             elif self.state == FarmStates.OPEN_BANK:
@@ -326,8 +333,12 @@ class FarmRun:
                     pass
                 
                 screenshot = capture_runelite_window()
-                templates = [Items.spade, Items.seed_dibber, Items.rake,
-                             Items.magic_secateurs, Items.bottomless_bucket]
+                templates = [Items.spade, Items.seed_dibber, Items.bottomless_bucket]
+                if RAKE:
+                    templates.append(Items.rake)
+                if MAGIC_SECATEURS:
+                    templates.append(Items.magic_secateurs)
+
                 equipment = find_by_templates(templates, 
                                               screenshot, 
                                               bounds=play_area.bounds)
@@ -379,9 +390,10 @@ class FarmRun:
                     click(find_by_template(screenshot, Runes.water))
                 press('esc')
 
-                # Equip secateurs
-                screenshot = capture_runelite_window()
-                click(find_by_template(screenshot, Items.magic_secateurs))
+                if MAGIC_SECATEURS:
+                    # Equip secateurs
+                    screenshot = capture_runelite_window()
+                    click(find_by_template(screenshot, Items.magic_secateurs))
                 
                 self.transition_state(FarmStates.GO_TO_NEXT_FARM)
 

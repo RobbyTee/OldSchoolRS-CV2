@@ -1,5 +1,9 @@
 import random
 
+from config import (
+    BIRDHOUSE_RUN, HERB_RUN, 
+    MAHOGANY_TREES, FUNGUS, PICKPOCKET,
+)
 from tasks.birdhouse_run import BirdhouseRun
 from tasks.fungus import Fungus
 from tasks.mahogany_logs import ChopMahoganyTrees
@@ -62,8 +66,15 @@ def main():
             continue
 
         # Check recurring tasks
-        bh_run = check_time("birdhouse_run", 52)
-        farm_run = check_time("farm_run", 95)
+        if BIRDHOUSE_RUN:
+            bh_run = check_time("birdhouse_run", 52)
+        else:
+            bh_run = False
+
+        if HERB_RUN:
+            herb_run = check_time("farm_run", 95)
+        else:
+            herb_run = False
 
         now = datetime.now(ZoneInfo(key="America/New_York"))
         now = now.strftime("%m-%d-%Y %I:%M %p")
@@ -79,18 +90,45 @@ def main():
         now = datetime.now(ZoneInfo(key="America/New_York"))
         now = now.strftime("%m-%d-%Y %I:%M %p")
 
-        if farm_run:
+        if herb_run:
             login()
             print(f"{now}: Doing a farm run")
 
             f = FarmRun()
             f.start()
 
-        else:
-            logout_now()
-            sleep(10)
-            continue
+        task_registry = {}
+        if MAHOGANY_TREES:
+            task_registry["Chop Mahogany Trees"] = ChopMahoganyTrees
+        if FUNGUS:
+            task_registry["Fungus"] = Fungus
+        if PICKPOCKET:
+            task_registry["Pickpocket Master Farmer"] = Pickpocket
         
+        if task_registry:
+            with open("utils\\last_task", "r") as file:
+                last_task = file.read().strip()
+            
+            entries = []
+            for entry in task_registry.values():
+                entries.append(entry)
+            
+            if last_task:
+                entries += [task_registry.get(last_task)] * 8
+            
+            choice = random.choice(entries)
+
+            for name, cls in task_registry.items():
+                if cls == choice:
+                    print(f"{now}: Starting {name}")
+                    with open("utile\\last_task", "r") as file:
+                        file.write(name)
+            
+            task = choice()
+
+            if not task.start():
+                break
+
 
 if __name__ == "__main__":
     main()
