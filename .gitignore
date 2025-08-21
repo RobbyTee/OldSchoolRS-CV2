@@ -4,3 +4,4 @@ __pycache__/
 tasks/__pycache__/
 *.pyc
 utils/
+runelite_library/__pycache__
