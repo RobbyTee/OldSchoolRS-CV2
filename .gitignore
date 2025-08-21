@@ -1,2 +1,4 @@
 # Ignore the config file
 config.py
+__pycache__/config.cpython-310.pyc
+config.py

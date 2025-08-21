@@ -1,7 +1,12 @@
-07-24-2025 16:49
-2025-07-24 12:49:14,174 [INFO] Successfully logged in!
-2025-07-24 12:49:14,203 [INFO] Starting a birdhouse run.
-2025-07-24 12:49:17,135 [WARNING] Could not click on template: Images\bank\bank_pin_screen.png
-2025-07-24 12:49:17,396 [INFO] Bank opened successfully
-2025-07-24 12:49:30,375 [INFO] Withdrew all equipment for birdhouse run.
-2025-07-24 12:49:41,559 [WARNING] Could not click on template: Images\items\digsite_pendant.png
+08-21-2025 15:04
+2025-08-21 11:04:48,091 [INFO] Already logged in.
+2025-08-21 11:04:48,095 [INFO] Starting a birdhouse run.
+2025-08-21 11:04:51,068 [WARNING] Could not click on template: Images\bank\bank_pin_screen.png
+2025-08-21 11:04:51,304 [INFO] Bank opened successfully
+2025-08-21 11:04:54,009 [WARNING] Could not click on template: Images\bank\quantity_1.png
+2025-08-21 11:04:54,097 [INFO] Failed on: BirdhouseState.WITHDRAW_EQUIPMENT
+2025-08-21 11:04:54,887 [ERROR] Failed to login!
+2025-08-21 11:04:54,889 [INFO] Starting farm run!
+2025-08-21 11:04:54,890 [INFO] Ardougne Cloak is ready to use.
+2025-08-21 11:04:54,891 [INFO] Explorers Ring has low charges.
+2025-08-21 11:04:56,541 [WARNING] Attempting to recover to bank

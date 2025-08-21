@@ -32,12 +32,12 @@ class Items:
     sickle = r + "sickle.png"
 
     # Logs
-    logs = r + ""
+    logs = r + "logs.png"
     oak_logs = r + ""
     willow_logs = r + ""
     yew_logs = r + "yew_logs.png"
     mahogany_logs = r + "mahogany_logs.png"
-    magic_logs = r + ""
+    magic_logs = r + "magic_logs.png"
     redwood_logs = r + ""
 
 class Bank:
