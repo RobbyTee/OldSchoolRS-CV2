@@ -120,6 +120,7 @@ def main():
             task_registry["Potions"] = MakePotion
 
         if task_registry:
+            login()
             with open("utils\\last_task", "r") as file:
                 last_task = file.read().strip()
             
@@ -142,8 +143,9 @@ def main():
 
             if not task.start():
                 break
+            continue
             
-
+        sleep(30)
 
 if __name__ == "__main__":
     main()
