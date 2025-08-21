@@ -1,4 +1,6 @@
 # Ignore the config file
 config.py
-__pycache__
+__pycache__/
+tasks/__pycache__/
 *.pyc
+utils/
