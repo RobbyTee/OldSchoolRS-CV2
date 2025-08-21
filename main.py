@@ -49,8 +49,8 @@ def sleep_until_bh():
 
 def is_bedtime():
     now = datetime.now().time()
-    start = time(START, 0)  # 9:00 PM
-    end = time(END, 0)     # 5:00 AM
+    start = time(START, 0)
+    end = time(END, 0)
 
     # Check if now is between 11 PM and 5 AM (overnight range)
     return now >= start or now <= end
