@@ -1,12 +1,31 @@
-08-21-2025 15:04
-2025-08-21 11:04:48,091 [INFO] Already logged in.
-2025-08-21 11:04:48,095 [INFO] Starting a birdhouse run.
-2025-08-21 11:04:51,068 [WARNING] Could not click on template: Images\bank\bank_pin_screen.png
-2025-08-21 11:04:51,304 [INFO] Bank opened successfully
-2025-08-21 11:04:54,009 [WARNING] Could not click on template: Images\bank\quantity_1.png
-2025-08-21 11:04:54,097 [INFO] Failed on: BirdhouseState.WITHDRAW_EQUIPMENT
-2025-08-21 11:04:54,887 [ERROR] Failed to login!
-2025-08-21 11:04:54,889 [INFO] Starting farm run!
-2025-08-21 11:04:54,890 [INFO] Ardougne Cloak is ready to use.
-2025-08-21 11:04:54,891 [INFO] Explorers Ring has low charges.
-2025-08-21 11:04:56,541 [WARNING] Attempting to recover to bank
+08-21-2025 15:20
+2025-08-21 11:20:57,805 [INFO] Already logged in.
+2025-08-21 11:20:57,808 [INFO] Starting a birdhouse run.
+2025-08-21 11:21:01,006 [WARNING] Could not click on template: Images\bank\bank_pin_screen.png
+2025-08-21 11:21:01,253 [INFO] Bank opened successfully
+2025-08-21 11:21:04,021 [WARNING] Could not click on template: Images\bank\quantity_1.png
+2025-08-21 11:21:12,991 [INFO] Withdrew all equipment for birdhouse run.
+2025-08-21 11:21:16,561 [INFO] Used digsite pendant to teleport to Fossil Island
+2025-08-21 11:21:22,845 [INFO] Used Mushtree to teleport to Verdant Valley
+2025-08-21 11:21:27,424 [INFO] Harvested birdhouse #1.
+2025-08-21 11:21:32,758 [INFO] Created a birdhouse
+2025-08-21 11:21:47,777 [INFO] Harvested birdhouse #2.
+2025-08-21 11:21:52,815 [INFO] Created a birdhouse
+2025-08-21 11:22:20,555 [INFO] Harvested birdhouse #3.
+2025-08-21 11:22:25,676 [INFO] Created a birdhouse
+2025-08-21 11:22:59,803 [INFO] Harvested birdhouse #4.
+2025-08-21 11:23:04,446 [INFO] Created a birdhouse
+2025-08-21 11:23:12,363 [INFO] Logged birdhouse run.
+2025-08-21 11:23:36,142 [INFO] Finished birdhouse run!
+2025-08-21 11:23:36,384 [INFO] Already logged in.
+2025-08-21 11:23:36,389 [INFO] Starting farm run!
+2025-08-21 11:23:36,394 [INFO] Ardougne Cloak is ready to use.
+2025-08-21 11:23:36,395 [INFO] Explorers Ring has low charges.
+2025-08-21 11:23:39,134 [WARNING] Could not click on template: Images\bank\bank_pin_screen.png
+2025-08-21 11:23:39,389 [INFO] Bank opened successfully
+2025-08-21 11:23:40,866 [INFO] Bank opened and deposited inventory & equipment.
+2025-08-21 11:24:49,826 [WARNING] Could not click on color: (70, 250, 70)
+2025-08-21 11:25:57,888 [WARNING] Could not click on color: (70, 250, 70)
+2025-08-21 11:27:30,223 [WARNING] Could not click on color: (70, 250, 70)
+2025-08-21 11:28:20,720 [WARNING] Could not click on color: (70, 250, 70)
+2025-08-21 11:29:09,522 [WARNING] Could not click on color: (70, 250, 70)

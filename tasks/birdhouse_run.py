@@ -23,6 +23,7 @@ logs_list = {
 
 LOGS = logs_list.get(LOGS)
 
+
 class BirdhouseState(Enum):
     INIT = auto()
     OPEN_BANK = auto()

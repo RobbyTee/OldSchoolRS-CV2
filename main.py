@@ -3,6 +3,7 @@ import random
 from config import (
     BIRDHOUSE_RUN, HERB_RUN, 
     MAHOGANY_TREES, FUNGUS, PICKPOCKET,
+    START, END, DO_RUNS
 )
 from tasks.birdhouse_run import BirdhouseRun
 from tasks.fungus import Fungus
@@ -48,8 +49,8 @@ def sleep_until_bh():
 
 def is_bedtime():
     now = datetime.now().time()
-    start = time(21, 0)  # 9:00 PM
-    end = time(5, 0)     # 5:00 AM
+    start = time(START, 0)  # 9:00 PM
+    end = time(END, 0)     # 5:00 AM
 
     # Check if now is between 11 PM and 5 AM (overnight range)
     return now >= start or now <= end
@@ -61,9 +62,11 @@ def main():
         
         activate_app('runelite')
 
-        if is_bedtime():
-            sleep(300)
-            continue
+        if not DO_RUNS:
+            if is_bedtime():
+                logout_now()
+                sleep(10)
+                continue
 
         # Check recurring tasks
         if BIRDHOUSE_RUN:
@@ -85,7 +88,9 @@ def main():
 
             b = BirdhouseRun()
             if not b.start():
+                log_use("birdhouse_run", overwrite=True)
                 print("   Failed this birdhouse run!")
+            continue
 
         now = datetime.now(ZoneInfo(key="America/New_York"))
         now = now.strftime("%m-%d-%Y %I:%M %p")
@@ -96,6 +101,12 @@ def main():
 
             f = FarmRun()
             f.start()
+            continue
+
+        if is_bedtime():
+            logout_now()
+            sleep(10)
+            continue
 
         task_registry = {}
         if MAHOGANY_TREES:
@@ -121,13 +132,14 @@ def main():
             for name, cls in task_registry.items():
                 if cls == choice:
                     print(f"{now}: Starting {name}")
-                    with open("utile\\last_task", "r") as file:
+                    with open("utils\\last_task", "r") as file:
                         file.write(name)
             
             task = choice()
 
             if not task.start():
                 break
+            
 
 
 if __name__ == "__main__":

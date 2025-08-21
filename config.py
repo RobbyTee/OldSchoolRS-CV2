@@ -2,20 +2,28 @@
 BANK_PIN = "1214"  # Replace with your actual bank pin as a string of 4 digits
 
 
+# BEDTIME
+## The times between which the script will "sleep".
+START = 21
+END = 5
+## Do you still want to do birdhouse and farm runs?
+DO_RUNS = True
+
+
 # TASKS
 ## Repeating tasks
 BIRDHOUSE_RUN = True
 HERB_RUN = True
 ## AFK Tasks
 MAHOGANY_TREES = False
-FUNGUS = False
+FUNGUS = True
 PICKPOCKET = False
 
 
 # DIARIES
-ARDOUGNE_CLOAK = False
+ARDOUGNE_CLOAK = True
 CLOAK_MAX_USES = 3
-EXPLORERS_RING = False
+EXPLORERS_RING = True
 RING_MAX_USES = 3
 
 
@@ -23,8 +31,8 @@ RING_MAX_USES = 3
 ## Mark "ready to harvest" birdhouses with the following colors:
     # Verdant Valley (South): (53, 75, 200)
     # All others: (85, 97, 170)
-RABBITS_FOOT = False
-LOGS = "logs"
+RABBITS_FOOT = True
+LOGS = "magic"
 
 
 # HERB RUN
@@ -38,8 +46,8 @@ LOGS = "logs"
     # Catherby
     # Kourend (Hosidius)
     # Farming Guild
-MAGIC_SECATEURS = False
-RAKE = True
+MAGIC_SECATEURS = True
+RAKE = False
 
 
 # BANK SETUP
