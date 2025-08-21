@@ -1,8 +1,11 @@
+# Bank Pin
+BANK_PIN = "xxxx"  # Replace with your actual bank pin as a string of 4 digits
+
+
 # TASKS
 ## Repeating tasks
 BIRDHOUSE_RUN = True
 HERB_RUN = True
-
 ## AFK Tasks
 MAHOGANY_TREES = False
 FUNGUS = False

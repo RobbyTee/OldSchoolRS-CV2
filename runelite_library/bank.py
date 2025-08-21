@@ -1,3 +1,4 @@
+from config import BANK_PIN
 from enum import Enum, auto
 from pyautogui import press
 from runelite_library.area import play_area
@@ -43,11 +44,11 @@ def open_bank(start_state=BankStates.INIT):
             bank_pin = wait(template=Bank.bank_pin_screen,
                             timeout=2)
             if bank_pin:
-                press('1')
-                press('2')
-                press('1')
-                press('4')
-
+                press(BANK_PIN[0])
+                press(BANK_PIN[1])
+                press(BANK_PIN[2])
+                press(BANK_PIN[3])
+                
             state = BankStates.VERIFY_OPEN_BANK
 
         elif state == BankStates.VERIFY_OPEN_BANK:
