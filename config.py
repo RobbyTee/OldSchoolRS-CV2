@@ -1,5 +1,5 @@
 # Bank Pin
-BANK_PIN = "1214"  # Replace with your actual bank pin as a string of 4 digits
+BANK_PIN = "xxxx"  # Replace with your actual bank pin as a string of 4 digits
 
 
 # BEDTIME
@@ -31,6 +31,7 @@ RING_MAX_USES = 3
 ## Mark "ready to harvest" birdhouses with the following colors:
     # Verdant Valley (South): (53, 75, 200)
     # All others: (85, 97, 170)
+## Mark the logs in inventory color: (150, 180, 30)
 RABBITS_FOOT = True
 LOGS = "magic"
 
@@ -54,7 +55,7 @@ RAKE = False
 """
     Have your bank set up with Roman Numeral tabs.
         I. 
-            - Runes
+            - Runes (Teleporting)
             - Ardougne Cloak
             - Draman Staff (Fungus)
             - Explorers Ring
