@@ -1,16 +1,18 @@
+import pyautogui
+
 from config import (
     RANARR, AVANTOE, SNAPDRAGON, KWUARM
 )
 from enum import Enum, auto
-from pyautogui import press
-from runelite_library.area import whole, inventory
-from runelite_library.filters import find_by_template, wait
+from pyautogui import press, moveTo
+from runelite_library.area import whole, inventory, play_area
+from runelite_library.filters import find_by_template, wait, find_by_templates
 from runelite_library.interaction import click, right_click
 from runelite_library.logger import log_state, log_event
 from runelite_library.window_management import capture_runelite_window
 from runelite_library.bank import open_bank
 from time import sleep
-from too_many_items import Bank, Items
+from too_many_items import Bank, Items, Misc
 
 class MakeStates(Enum):
     INIT = auto()
@@ -75,37 +77,62 @@ class MakePotion:
                 self.transition_state(MakeStates.WITHDRAW_HERB)
 
             elif self.state == MakeStates.WITHDRAW_HERB:
+                screenshot = capture_runelite_window()
                 if RANARR:
-                    if not right_click(wait(template=Items.clean_ranarr)):
-                        pass
-                    else:
+                    coords = find_by_template(screenshot=screenshot,
+                                              template_path=Items.clean_ranarr)
+                    moveTo(coords)
+                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
+                                       timeout=1)
+                    if herb_exists:
+                        pyautogui.rightClick()
                         click(wait(template=Bank.withdraw_14))
                         self.transition_state(MakeStates.COMBINE_INGREDIENTS)
                         continue
+                    else:
+                        pass
                     
                 if AVANTOE:
-                    if not right_click(wait(template=Items.clean_avanatoe)):
-                        pass
-                    else:
+                    coords = find_by_template(screenshot=screenshot,
+                                              template_path=Items.clean_avanatoe)
+                    moveTo(coords)
+                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
+                                       timeout=1)
+                    if herb_exists:
+                        pyautogui.rightClick()
                         click(wait(template=Bank.withdraw_14))
                         self.transition_state(MakeStates.COMBINE_INGREDIENTS)
                         continue
+                    else:
+                        pass
 
                 if KWUARM:
-                    if not right_click(wait(template=Items.clean_kwuarm)):
-                        pass
-                    else:
+                    coords = find_by_template(screenshot=screenshot,
+                                              template_path=Items.clean_kwuarm)
+                    moveTo(coords)
+                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
+                                       timeout=1)
+                    if herb_exists:
+                        pyautogui.rightClick()
                         click(wait(template=Bank.withdraw_14))
                         self.transition_state(MakeStates.COMBINE_INGREDIENTS)
                         continue
+                    else:
+                        pass
 
                 if SNAPDRAGON:
-                    if not right_click(wait(template=Items.clean_snapdragon)):
-                        pass
-                    else:
+                    coords = find_by_template(screenshot=screenshot,
+                                              template_path=Items.clean_snapdragon)
+                    moveTo(coords)
+                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
+                                       timeout=1)
+                    if herb_exists:
+                        pyautogui.rightClick()
                         click(wait(template=Bank.withdraw_14))
                         self.transition_state(MakeStates.COMBINE_INGREDIENTS)
                         continue
+                    else:
+                        pass
                 
                 log_event("Out of herbs!")
                 self.transition_state(MakeStates.FAILED)

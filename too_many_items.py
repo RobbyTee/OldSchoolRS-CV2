@@ -165,6 +165,7 @@ class Misc:
     # Switch World Bounty Hunter
     switch_world = r + "switch_world.png"
 
+    good = r + "good.png"
 
 class Normal_Spellbook:
     """
