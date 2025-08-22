@@ -16,6 +16,7 @@ logs_list = {
     "oak": Items.oak_logs,
     "willow": Items.willow_logs,
     "yew": Items.yew_logs,
+    "teak": Items.teak_logs,
     "mahogany": Items.mahogany_logs,
     "magic": Items.magic_logs,
     "redwood": Items.redwood_logs,

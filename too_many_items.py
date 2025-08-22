@@ -36,6 +36,7 @@ class Items:
     oak_logs = r + ""
     willow_logs = r + ""
     yew_logs = r + "yew_logs.png"
+    teak_logs = r + "teak_logs.png"
     mahogany_logs = r + "mahogany_logs.png"
     magic_logs = r + "magic_logs.png"
     redwood_logs = r + ""
