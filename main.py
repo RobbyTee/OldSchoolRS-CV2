@@ -20,34 +20,6 @@ from datetime import datetime, timedelta, time
 from zoneinfo import ZoneInfo
 
 
-def sleep_until_bh():
-    birdhouse_log = "utils/birdhouse_run"
-
-    # Read and parse last run time
-    with open(birdhouse_log, "r") as file:
-        last_run_str = file.read().strip()
-    last_run_time = datetime.strptime(last_run_str, "%m-%d-%Y %H:%M")
-
-    # Convert to UTC assuming the timestamp is in UTC
-    last_run_time = last_run_time.replace(tzinfo=None)
-
-    # Get current UTC time
-    now_utc = datetime.utcnow()
-
-    # Calculate next run time: 50 min + 2 min buffer
-    next_run_time = last_run_time + timedelta(minutes=52)
-    time_to_wait = (next_run_time - now_utc).total_seconds()
-
-    if time_to_wait > 0:
-        print(f"[O] Sleeping for {time_to_wait:.2f} seconds until next birdhouse run.")
-        logout_now()
-        sleep(time_to_wait)
-    else:
-        print("[O] Birdhouse run is ready. No need to sleep.")
-
-    return True
-
-
 def is_bedtime():
     now = datetime.now().time()
     start = time(START, 0)
@@ -91,7 +63,7 @@ def main():
             if not b.start():
                 log_use("birdhouse_run", overwrite=True)
                 print("   Failed this birdhouse run!")
-            continue
+                return False
 
         now = datetime.now(ZoneInfo(key="America/New_York"))
         now = now.strftime("%m-%d-%Y %I:%M %p")
@@ -101,12 +73,14 @@ def main():
             print(f"{now}: Doing a farm run")
 
             f = FarmRun()
-            f.start()
-            continue
+            if not f.start():
+                log_use("farm_run", overwrite=True)
+                print("    Failed this farm run.")
+                return False
 
         if is_bedtime():
+            sleep(200)
             logout_now()
-            sleep(10)
             continue
 
         task_registry = {}
@@ -145,7 +119,7 @@ def main():
                 break
             continue
             
-        sleep(30)
+        sleep(15)
 
 if __name__ == "__main__":
     main()

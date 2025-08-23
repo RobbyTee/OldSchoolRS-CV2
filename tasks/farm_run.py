@@ -4,7 +4,7 @@ from config import (
     MAGIC_SECATEURS, RAKE
 )
 from enum import Enum, auto
-from pyautogui import press
+from pyautogui import press, moveTo, leftClick
 from runelite_library.area import whole, minimap, inventory, play_area
 from runelite_library.bank import open_bank
 from runelite_library.check_charges import check_charges
@@ -17,7 +17,7 @@ from runelite_library.logger import log_event, log_state
 from runelite_library.window_management import capture_runelite_window
 from time import sleep, time
 from too_many_items import (
-    Armor, Pathing, Bank, Items, Menu, Runes, Interfaces,
+    Armor, Pathing, Bank, Items, Menu, Misc, Runes, Interfaces,
     Normal_Spellbook, Global_Colors)
 
 
@@ -254,6 +254,29 @@ class FarmRun:
             click(herb)
         return True
 
+
+    def check_stock(self, screenshot, item):
+        """
+        Input screenshot and template path of item. It'll hover over it and check
+        if "GOOD" pops up. Used mostly with the bank.
+        """
+        item_to_withdraw = find_by_template(screenshot, item)
+        
+        if item_to_withdraw:
+            moveTo(item_to_withdraw)
+        else:
+            log_event(f"No {str(item)} in stock!", level="error")
+            return False, None
+        
+        enough_in_stock = wait(template=Misc.good, bounds=play_area.bounds, timeout=1)
+        
+        if enough_in_stock:         
+            return True, item_to_withdraw
+        else:
+            log_event(f"Not enough {str(item)} in stock.", level="error")
+            return False, None
+
+
     def start(self, start_state=FarmStates.INIT):
         self.transition_state(start_state)
 
@@ -332,7 +355,7 @@ class FarmRun:
                     log_event('Already on "Withdraw 1" in bank.')
                     pass
                 
-                screenshot = capture_runelite_window()
+                tab_iii = capture_runelite_window()
                 templates = [Items.spade, Items.seed_dibber, Items.bottomless_bucket]
                 if RAKE:
                     templates.append(Items.rake)
@@ -340,21 +363,15 @@ class FarmRun:
                     templates.append(Items.magic_secateurs)
 
                 equipment = find_by_templates(templates, 
-                                              screenshot, 
+                                              tab_iii, 
                                               bounds=play_area.bounds)
                 for item in equipment:
                     click(item)
-
-                herb_seed = find_by_template(screenshot=screenshot,
-                                             template_path=Items.herb_seed)
                 
-                # Quantity 5
-                click(wait(template=Bank.quantity_5, bounds=play_area.bounds))
-                if herb_seed:
-                    click(herb_seed)
-                else:
-                    self.transition_state(FarmStates.FAILED)
-                    continue
+                enough_stock, coords_of_herb_seed = self.check_stock(tab_iii, Items.herb_seed)
+                if enough_stock:
+                    click(wait(template=Bank.quantity_5, bounds=play_area.bounds))
+                    click(coords_of_herb_seed)
 
                 # Tab all & quantity 1
                 try:
@@ -363,31 +380,44 @@ class FarmRun:
                 except:
                     log_event('Already on "Withdraw 1" in bank.')
                     pass
-                click(find_by_template(screenshot=screenshot,
+                click(find_by_template(screenshot=tab_iii,
                                        template_path=Bank.tab_all))
-                screenshot = capture_runelite_window()
+                tab_all = capture_runelite_window()
                 templates = []
                 if ardougne_cloak:
                     templates += [Armor.ardougne_cloak]
                 if explorers_ring:
                     templates += [Items.explorers_ring]
                 if templates:
-                    equipment = find_by_templates(templates, screenshot, 
+                    equipment = find_by_templates(templates, tab_all, 
                                                 bounds=play_area.bounds)
                     for item in equipment:
                         click(item)
 
-                click(find_by_template(screenshot,
+                click(find_by_template(tab_all,
                                        Items.skills_necklace))
 
                 # Quantity 10
-                click(find_by_template(screenshot, Bank.quantity_10))
-                click(find_by_template(screenshot, Runes.air))
-                click(find_by_template(screenshot, Runes.air))
-                click(find_by_template(screenshot, Runes.earth))
-                click(find_by_template(screenshot, Runes.law))
+                click(find_by_template(tab_all, Bank.quantity_10))
+
+                enough_air_runes, air_runes = self.check_stock(tab_all, Runes.air)
+                if enough_air_runes:
+                    click(air_runes)
+                    click(air_runes)
+
+                enough_earth_runes, earth_runes = self.check_stock(tab_all, Runes.earth)
+                if enough_earth_runes:
+                    click(earth_runes)
+
+                enough_law_runes, law_runes = self.check_stock(tab_all, Runes.law)
+                if enough_law_runes:
+                    click(law_runes)
+
                 if not ardougne_cloak or not explorers_ring:
-                    click(find_by_template(screenshot, Runes.water))
+                    enough_water_runes, water_runes = self.check_stock(tab_all, Runes.water)
+                    if enough_water_runes:
+                        click(water_runes)
+                        
                 press('esc')
 
                 if MAGIC_SECATEURS:
