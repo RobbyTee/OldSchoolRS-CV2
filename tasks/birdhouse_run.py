@@ -1,6 +1,6 @@
 from config import LOGS, RABBITS_FOOT
 from enum import Enum, auto
-from pyautogui import press
+from pyautogui import press, moveTo
 from runelite_library.area import whole, minimap, inventory, play_area
 from runelite_library.bank import open_bank
 from runelite_library.check_charges import log_use
@@ -9,7 +9,7 @@ from runelite_library.interaction import click, right_click, use_rgb1_on_rgb2, u
 from runelite_library.logger import log_event, log_state, read_prev_state
 from runelite_library.window_management import capture_runelite_window
 from time import sleep
-from too_many_items import Pathing, Bank, Items, Menu, Objects
+from too_many_items import Pathing, Bank, Items, Menu, Objects, Misc
 
 logs_list = {
     "logs": Items.logs,
@@ -85,13 +85,21 @@ class BirdhouseRun:
                         log_event('Already on "Withdraw 1" in bank.')
                         pass
                     tab_iii = capture_runelite_window()
-                    if not click(wait(template=LOGS, bounds=play_area.bounds)):
+                    logs_to_withdraw = find_by_template(screenshot=tab_iii,
+                                              template_path=LOGS)
+                    if logs_to_withdraw:
+                        moveTo(logs_to_withdraw)
+                    else:
+                        log_event("No logs found in tab III of bank!", level="error")
                         return False
-                    if not click(wait(template=LOGS, bounds=play_area.bounds)):
-                        return False
-                    if not click(wait(template=LOGS, bounds=play_area.bounds)):
-                        return False
-                    if not click(wait(template=LOGS, bounds=play_area.bounds)):
+                    enough_logs = wait(template=Misc.good, bounds=play_area.bounds, timeout=1)
+                    if enough_logs:
+                        click(logs_to_withdraw)
+                        click(logs_to_withdraw)
+                        click(logs_to_withdraw)
+                        click(logs_to_withdraw)
+                    else:
+                        log_event("Not enough logs to do a full birdhouse run!", level="error")
                         return False
                     equipment = [Items.chisel, Items.hammer]
                     if RABBITS_FOOT:
@@ -101,13 +109,26 @@ class BirdhouseRun:
                         click(item)
                     # find_by_templates() will not find the digsite pendant
                     if not click(wait(template=Items.digsite_pendant)):
+                        log_event("No digsite pendant found in tab III.", level="error")
                         return False
                     # Quantity 10 for 40 Hammerstone seeds
                     click(wait(template=Bank.quantity_10))
-                    hammerstone_seeds = [Items.hammerstone_seeds] * 4
-                    coords = find_by_templates(hammerstone_seeds, tab_iii, whole.bounds)
-                    for item in coords:
-                        click(item)
+                    seeds_to_withdraw = find_by_template(screenshot=tab_iii,
+                                                         template_path=Items.hammerstone_seeds)
+                    if seeds_to_withdraw:
+                        moveTo(seeds_to_withdraw)
+                    else:
+                        log_event("No hammerstone seeds found in tab III", level="error")
+                        return False
+                    enough_seeds = wait(template=Misc.good, bounds=play_area.bounds, timeout=1)
+                    if enough_seeds:
+                        click(seeds_to_withdraw)
+                        click(seeds_to_withdraw)
+                        click(seeds_to_withdraw)
+                        click(seeds_to_withdraw)
+                    else:
+                        log_event("Not enough hammerstone seeds for a birdhouse run.", level="error")
+                        return False
                     log_event("Withdrew all equipment for birdhouse run.")
                     press('esc')
                     if RABBITS_FOOT:
