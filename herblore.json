@@ -1,0 +1,61 @@
+{
+  "is_hover_map": "absolutely",
+  "hovers": [
+    {
+      "items": [
+          "Avantoe", "Kwuarm", 
+          "Ranarr weed", "Snapdragon", 
+          "Vial of water"
+      ],
+      "condition": "qty > 1",
+      "hovers": [
+          ["GOOD"]
+      ]
+    },
+    {
+      "items_regex": [
+        "(Guam|Marrentill|Tarromin|Harralander|Ranarr|Toadflax|Irit|Avantoe|Kwuarm|Snapdragon|Cadantine|Lantadyme|Dwarf Weed|Torstol) seed"
+      ],
+      "condition": "qty >= 5",
+      "hovers": [
+          ["GOOD"] 
+      ]
+    },
+    {
+      "items_regex": [
+        "(Regular|Oak|Willow|Teak|Maple|Mahogany|Yew|Magic|Redwood) logs"
+      ],
+      "condition": "qty >= 4",
+      "hovers": [
+          ["GOOD"] 
+      ]
+    },
+    {
+      "items_regex": [
+        "(Earth|Fire|Water|Law) rune"
+      ],
+      "condition": "qty >= 10",
+      "hovers": [
+          ["GOOD"] 
+      ]
+    },
+    {
+      "items": [
+        "Hammerstone seed"
+      ],
+      "condition": "qty >= 40",
+      "hovers": [
+          ["GOOD"] 
+      ]
+    },
+    {
+      "items": [
+        "Air rune"
+      ],
+      "condition": "qty >= 20",
+      "hovers": [
+          ["GOOD"] 
+      ]
+    }
+  ]
+}
