@@ -47,7 +47,13 @@ class Items:
     clean_kwuarm = r + "clean_kwuarm.png"
     clean_snapdragon = r + "clean_snapdragon.png"
 
+    # Unfinished Potions
     vial_of_water = r + "vial_of_water.png"
+    avantoe_potion_unf = r + "avantoe_potion_unf.png"
+
+    # Portion Secondaries
+    mort_myre_fungus = r + "mort_myre_fungus.png"
+    
 
 class Bank:
     """

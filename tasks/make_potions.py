@@ -1,8 +1,7 @@
-import pyautogui
-
 from config import (
-    RANARR, AVANTOE, SNAPDRAGON, KWUARM
+    SUPER_ENERGY
 )
+
 from enum import Enum, auto
 from pyautogui import press, moveTo
 from runelite_library.area import whole, inventory, play_area
@@ -14,149 +13,105 @@ from runelite_library.bank import open_bank
 from time import sleep
 from too_many_items import Bank, Items, Misc
 
-class MakeStates(Enum):
+def withdraw_if_in_stock(screenshot, item):
+    """
+    Input screenshot and template path of item. It'll hover over it and check
+    if "GOOD" pops up. Used mostly with the bank.
+    """
+    item_to_withdraw = find_by_template(screenshot, item)
+
+    if item_to_withdraw:
+        moveTo(item_to_withdraw)
+    else:
+        log_event(f"No {str(item)} in stock!", level="error")
+        return False
+
+    enough_in_stock = wait(template=Misc.good, bounds=play_area.bounds, timeout=1)
+
+    if enough_in_stock:
+        right_click(item_to_withdraw)
+        click(wait(template=Bank.withdraw_14))
+        return True
+    else:
+        log_event(f"Not enough {str(item)} in stock.", level="error")
+        return False
+
+
+class PotionState(Enum):
     INIT = auto()
     OPEN_BANK = auto()
-    WITHDRAW_WATER = auto()
-    WITHDRAW_HERB = auto()
-    FAILED = auto()
-    SET_WITHDRAW_14 = auto()
+    CHOOSE_POTION = auto()
+    WITHDRAW_INGREDIENTS = auto()
     COMBINE_INGREDIENTS = auto()
+    MAKE_SUPER_ENERGY = auto()
     SUCCESS = auto()
+    FAILED = auto()
+
 
 class MakePotion:
     def transition_state(self, transition_to_state):
         self.state = transition_to_state
         log_state(self.state)
-
-
+    
+    
     def start(self):
-        self.transition_state(MakeStates.INIT)
+        self.state = PotionState.INIT
 
         while True:
-            if self.state == MakeStates.INIT:
-                self.transition_state(MakeStates.OPEN_BANK)
+            if self.state == PotionState.INIT:
+                self.transition_state(PotionState.OPEN_BANK)
+                continue
 
-            elif self.state == MakeStates.OPEN_BANK:
-                # Open bank and empty inventory and equipment
-                if open_bank():
-                    screenshot = capture_runelite_window()
-                    coords = find_by_template(screenshot=screenshot, template_path=Bank.deposit_inventory)
-                    if coords:
-                        click(coords)
-                    else:
-                        self.transition_state(MakeStates.FAILED)
-                        
-                    self.transition_state(MakeStates.WITHDRAW_WATER)
-                else:
-                    self.transition_state(MakeStates.FAILED)
-
-            elif self.state == MakeStates.WITHDRAW_WATER:
-                click(wait(template=Bank.tab_ii))
-                if not right_click(wait(template=Items.vial_of_water)):
-                    log_event("Out of vials of water!", level="error")
-                    return False
-                screenshot = capture_runelite_window()
-                withdraw_14 = find_by_template(screenshot=screenshot, 
-                                               template_path=Bank.withdraw_14)
-                if not withdraw_14:
-                    self.transition_state(MakeStates.SET_WITHDRAW_14)
+            elif self.state == PotionState.OPEN_BANK:
+                if not open_bank():
+                    self.transition_state(PotionState.FAILED)
                     continue
-                else:
-                    click(withdraw_14)
-                    self.transition_state(MakeStates.WITHDRAW_HERB)
 
-            elif self.state == MakeStates.SET_WITHDRAW_14:
-                if not click(wait(template=Bank.withdraw_x)):
-                    self.transition_state(MakeStates.FAILED)
+                if not click(wait(template=Bank.tab_ii, timeout=1)):
+                    self.transition_state(PotionState.FAILED)
                     continue
-                sleep(2)
-                press('1')
-                press('4')
-                press('enter')
-                self.transition_state(MakeStates.WITHDRAW_HERB)
-
-            elif self.state == MakeStates.WITHDRAW_HERB:
-                screenshot = capture_runelite_window()
-                if RANARR:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_ranarr)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
-                    
-                if AVANTOE:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_avanatoe)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
-
-                if KWUARM:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_kwuarm)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
-
-                if SNAPDRAGON:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_snapdragon)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
                 
-                log_event("Out of herbs!")
-                self.transition_state(MakeStates.FAILED)
+                if not click(wait(template=Bank.deposit_inventory, timeout=1)):
+                    self.transition_state(PotionState.FAILED)
+                    continue
+                
+                screenshot_of_tab_ii = capture_runelite_window()
+                self.transition_state(PotionState.CHOOSE_POTION)
+            
+            elif self.state == PotionState.CHOOSE_POTION:
+                if SUPER_ENERGY:
+                    unfinished_potion = Items.avantoe_potion_unf
+                    secondary_item = Items.mort_myre_fungus
+                    self.transition_state(PotionState.WITHDRAW_INGREDIENTS)
+                    continue
+                else:
+                    self.transition_state(PotionState.FAILED)
+                    continue
+                    
+            elif self.state == PotionState.WITHDRAW_INGREDIENTS:
+                if not withdraw_if_in_stock(screenshot_of_tab_ii, unfinished_potion):
+                    self.transition_state(PotionState.FAILED)
+                    continue
+                
+                if not withdraw_if_in_stock(screenshot_of_tab_ii, secondary_item):
+                    self.transition_state(PotionState.FAILED)
+                    continue
+                
+                press('esc')
+                self.transition_state(PotionState.COMBINE_INGREDIENTS)
                 continue
             
-            elif self.state == MakeStates.COMBINE_INGREDIENTS:
-                clean_herb = (89, 40, 200)
-                press('esc')
-                if not click(wait(rgb_color=clean_herb)):
-                    log_event("Tried to click on herb in inventory, but failed!")
-                    self.transition_state(MakeStates.FAILED)
-                    continue
-                if not click(wait(template=Items.vial_of_water, bounds=inventory.bounds)):
-                    log_event("Tried to click on vial of water in inventory, but failed!")
-                    self.transition_state(MakeStates.FAILED)
-                    continue
+            elif self.state == PotionState.COMBINE_INGREDIENTS:
+                click(wait(template=unfinished_potion, timeout=1))
+                click(wait(template=secondary_item, timeout=1))
                 sleep(1)
                 press('space')
-                sleep(10)
-                self.transition_state(MakeStates.SUCCESS)
-                
-            elif self.state == MakeStates.SUCCESS:
-                return True
+                sleep(18)
+                self.transition_state(PotionState.SUCCESS)
+                continue
 
-            elif self.state == MakeStates.FAILED:
-                press('esc')
+            elif self.state == PotionState.SUCCESS:
+                return True
+            
+            elif self.state == PotionState.FAILED:
                 return False

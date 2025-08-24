@@ -56,6 +56,16 @@
       "hovers": [
           ["GOOD"] 
       ]
+    },
+    {
+      "items": [
+        "Avantoe potion (unf)",
+        "Mort myre fungus"
+      ],
+      "condition": "qty >= 14",
+      "hovers": [
+          ["GOOD"] 
+      ]
     }
   ]
 }

@@ -2,12 +2,14 @@ import random
 
 from config import (
     BIRDHOUSE_RUN, HERB_RUN, 
-    MAHOGANY_TREES, FUNGUS, PICKPOCKET, POTIONS,
+    MAHOGANY_TREES, FUNGUS, PICKPOCKET, 
+    UNFINISHED_POTIONS, POTIONS,
     START, END, DO_RUNS
 )
 from tasks.birdhouse_run import BirdhouseRun
 from tasks.fungus import Fungus
 from tasks.mahogany_logs import ChopMahoganyTrees
+from tasks.make_unf_potions import MakeUnfPotion
 from tasks.make_potions import MakePotion
 from tasks.master_farmer import Pickpocket
 from tasks.farm_run import FarmRun
@@ -90,8 +92,10 @@ def main():
             task_registry["Fungus"] = Fungus
         if PICKPOCKET:
             task_registry["Pickpocket Master Farmer"] = Pickpocket
+        if UNFINISHED_POTIONS:
+            task_registry["Unfinished Potions"] = MakeUnfPotion
         if POTIONS:
-            task_registry["Potions"] = MakePotion
+            task_registry["Make Potions"] = MakePotion
 
         if task_registry:
             login()
