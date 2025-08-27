@@ -486,9 +486,19 @@ class FarmRun:
                 return False
                 
             elif self.state == FarmStates.HARVEST_HERB:
-                if wait(self.herb_tile, bounds=play_area.bounds):
-                    if not click(wait(self.herb_tile, bounds=play_area.bounds)):
-                        self.transition_state(FarmStates.FAILED)
+                herbs = wait(self.herb_tile, bounds=play_area.bounds)
+                if herbs:
+                    moveTo(herbs)
+                    if not wait(template=Menu.diseased_herbs, bounds=play_area.bounds):
+                        if not click(herbs):
+                            self.transition_state(FarmStates.FAILED)
+                            continue
+                    else:
+                        log_event("Detected diseased herbs. Skipping this farm.", level="warning")
+                        farm += 1
+                        self.transition_state(FarmStates.GO_TO_NEXT_FARM)
+                        continue
+
                     self.transition_state(FarmStates.HARVESTING)
                     continue
                 else:
