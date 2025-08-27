@@ -8,7 +8,8 @@ START = 22
 END = 5
 ## Do you still want to do birdhouse and farm runs?
 DO_RUNS = True
-
+## How many duplicate tasks to add?
+DUPLICATE = 5
 
 # TASKS
 ## Repeating tasks
@@ -16,9 +17,9 @@ BIRDHOUSE_RUN = True
 HERB_RUN = True
 ## AFK Tasks
 MAHOGANY_TREES = False
-FUNGUS = False
+FUNGUS = True
 PICKPOCKET = False
-UNFINISHED_POTIONS = False
+UNFINISHED_POTIONS = True
 POTIONS = True
 
 
