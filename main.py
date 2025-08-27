@@ -32,9 +32,8 @@ def is_bedtime():
 
 
 def main():
+    log_use("activity.log", overwrite=True)
     while True:
-        log_use("activity.log", overwrite=True)
-        
         activate_app('runelite')
 
         if not DO_RUNS:
