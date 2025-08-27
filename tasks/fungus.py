@@ -158,7 +158,9 @@ class Fungus:
 
             elif self.state == MortMyreStates.TELEPORT_TO_CASTLE_WARS:
                 press(Interfaces.equipment_icon)
-                right_click(wait(template=Items.ring_of_dueling))
+                if not right_click(wait(template=Items.ring_of_dueling)):
+                    self.transition_state(MortMyreStates.FAILED)
+                    continue
                 click(wait(template=Menu.castle_wars))
                 sleep(3)
                 press(Interfaces.inventory_icon)
