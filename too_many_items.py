@@ -156,6 +156,9 @@ class Menu:
     # Ring of Dueling
     castle_wars = r + "castle_wars.png"
 
+    # Farming
+    diseased_herbs = r + "diseased_herbs.png"
+
 
 class Misc:
     """
