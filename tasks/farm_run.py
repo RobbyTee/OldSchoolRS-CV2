@@ -489,7 +489,7 @@ class FarmRun:
                 herbs = wait(self.herb_tile, bounds=play_area.bounds)
                 if herbs:
                     moveTo(herbs)
-                    if not wait(template=Menu.diseased_herbs, bounds=play_area.bounds):
+                    if not wait(template=Menu.diseased_herbs, bounds=play_area.bounds, timeout=1):
                         if not click(herbs):
                             self.transition_state(FarmStates.FAILED)
                             continue
