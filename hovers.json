@@ -66,6 +66,15 @@
       "hovers": [
           ["GOOD"] 
       ]
+    },
+    {
+      "items": [
+        "Ring of dueling('(1)'|'(8)')"
+      ],
+      "condition": "qty >= 1",
+      "hovers": [
+          ["GOOD"] 
+      ]
     }
   ]
 }

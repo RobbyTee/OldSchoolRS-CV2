@@ -50,7 +50,7 @@ def main():
             bh_run = False
 
         if HERB_RUN:
-            herb_run = check_time("farm_run", 95)
+            herb_run = check_time("farm_run", 82)
         else:
             herb_run = False
 
