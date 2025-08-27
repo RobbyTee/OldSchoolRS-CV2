@@ -3,7 +3,7 @@ import random
 from config import (
     BIRDHOUSE_RUN, HERB_RUN, 
     MAHOGANY_TREES, FUNGUS, PICKPOCKET, 
-    UNFINISHED_POTIONS, POTIONS,
+    UNFINISHED_POTIONS, POTIONS, DUPLICATE,
     START, END, DO_RUNS
 )
 from tasks.birdhouse_run import BirdhouseRun
@@ -107,7 +107,10 @@ def main():
                 entries.append(entry)
             
             if last_task:
-                entries += [task_registry.get(last_task)] * 8
+                if last_task in task_registry.keys():
+                    entries += [task_registry.get(last_task)] * DUPLICATE
+                else:
+                    pass
             
             choice = random.choice(entries)
 
