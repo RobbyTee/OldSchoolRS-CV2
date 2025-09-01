@@ -11,7 +11,7 @@ ACTIVITY_LOG_PATH = LOG_DIR / "activity.log"
 STATE_LOG_PATH = LOG_DIR / "current_state.log"
 PREV_STATE_LOG_PATH = LOG_DIR / "prev_state.log"
 
-def setup_logger(name, log_file, level=logging.INFO, formatter=None):
+def setup_logger(name, log_file, level=logging.DEBUG, formatter=None):
     """Creates and returns a logger with rotation."""
     handler = RotatingFileHandler(log_file, maxBytes=1_000_000, backupCount=3)
     if not formatter:

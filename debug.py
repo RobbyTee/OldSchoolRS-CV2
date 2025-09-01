@@ -2,7 +2,7 @@ from pyautogui import press
 from runelite_library.window_management import activate_app, capture_runelite_window
 from runelite_library.login import login
 from runelite_library.logger import read_prev_state
-from runelite_library.check_charges import log_use
+from runelite_library.check_charges import log_use, check_charges
 from tasks.fungus import Fungus
 from tasks.master_farmer import Pickpocket
 from tasks.mahogany_logs import ChopMahoganyTrees, MahoganyStates
@@ -20,4 +20,4 @@ import random
 
 activate_app('runelite')
 
-click(wait(template=Items.yew_logs, bounds=play_area.bounds))
+print(check_charges('ardougne_cloak'))

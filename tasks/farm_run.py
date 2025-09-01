@@ -305,11 +305,12 @@ class FarmRun:
                 if ARDOUGNE_CLOAK:
                     ardy_cloak = check_charges('ardougne_cloak')
                     if ardy_cloak < CLOAK_MAX_USES:
-                        log_event("Ardougne Cloak has low charges.")
-                        ardougne_cloak = False
-                    else:
                         log_event("Ardougne Cloak is ready to use.")
                         ardougne_cloak = True
+                    else:
+                        log_event("Ardougne Cloak has low charges.")
+                        ardougne_cloak = False
+                        
                 else:
                     ardougne_cloak = False
                 
@@ -490,7 +491,9 @@ class FarmRun:
                 if herbs:
                     moveTo(herbs)
                     if not wait(template=Menu.diseased_herbs, bounds=play_area.bounds, timeout=1):
+                        log_event("This herb patch is not diseased", level="debug")
                         if not click(herbs):
+                            log_event("Could not click on herbs tile.")
                             self.transition_state(FarmStates.FAILED)
                             continue
                     else:
