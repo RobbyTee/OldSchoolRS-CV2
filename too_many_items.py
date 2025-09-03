@@ -51,9 +51,11 @@ class Items:
     vial_of_water = r + "vial_of_water.png"
     avantoe_potion_unf = r + "avantoe_potion_unf.png"
 
-    # Portion Secondaries
+    # Potion Secondaries
     mort_myre_fungus = r + "mort_myre_fungus.png"
-    
+    amylase_crystal = r + "amylase_crystal.png"
+    super_energy = r + "super_energy.png"
+
 
 class Bank:
     """
@@ -90,6 +92,7 @@ class Bank:
     withdraw_14 = r + "withdraw_14.png"
     withdraw_40 = r + "withdraw_40.png"
     withdraw_x = r + "withdraw_x.png"
+    withdraw_all = r + "withdraw_all.png"
     deposit_inventory = r + "deposit_inventory.png"
     deposit_equipment = r + "deposit_equipment.png"
 

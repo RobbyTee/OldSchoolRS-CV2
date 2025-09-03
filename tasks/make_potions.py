@@ -1,5 +1,6 @@
 from config import (
-    SUPER_ENERGY
+    SUPER_ENERGY,
+    STAMINA
 )
 
 from enum import Enum, auto
@@ -13,7 +14,7 @@ from runelite_library.bank import open_bank
 from time import sleep
 from too_many_items import Bank, Items, Misc
 
-def withdraw_if_in_stock(screenshot, item):
+def withdraw_if_in_stock(screenshot, item, quantity):
     """
     Input screenshot and template path of item. It'll hover over it and check
     if "GOOD" pops up. Used mostly with the bank.
@@ -30,7 +31,10 @@ def withdraw_if_in_stock(screenshot, item):
 
     if enough_in_stock:
         right_click(item_to_withdraw)
-        click(wait(template=Bank.withdraw_14))
+        if quantity == 14:
+            click(wait(template=Bank.withdraw_14))
+        elif quantity == "all":
+            click(wait(template=Bank.withdraw_all))
         return True
     else:
         log_event(f"Not enough {str(item)} in stock.", level="error")
@@ -75,6 +79,7 @@ class MakePotion:
                     self.transition_state(PotionState.FAILED)
                     continue
                 
+                sleep(1.5)
                 screenshot_of_tab_ii = capture_runelite_window()
                 self.transition_state(PotionState.CHOOSE_POTION)
             
@@ -82,18 +87,26 @@ class MakePotion:
                 if SUPER_ENERGY:
                     unfinished_potion = Items.avantoe_potion_unf
                     secondary_item = Items.mort_myre_fungus
+                    qty = 14
+                    timeout = 18
                     self.transition_state(PotionState.WITHDRAW_INGREDIENTS)
                     continue
+                elif STAMINA:
+                    unfinished_potion = Items.super_energy
+                    secondary_item = Items.amylase_crystal
+                    qty = "all"
+                    timeout = 32
+                    self.transition_state(PotionState.WITHDRAW_INGREDIENTS)
                 else:
                     self.transition_state(PotionState.FAILED)
                     continue
                     
             elif self.state == PotionState.WITHDRAW_INGREDIENTS:
-                if not withdraw_if_in_stock(screenshot_of_tab_ii, unfinished_potion):
+                if not withdraw_if_in_stock(screenshot_of_tab_ii, secondary_item, qty):
                     self.transition_state(PotionState.FAILED)
                     continue
-                
-                if not withdraw_if_in_stock(screenshot_of_tab_ii, secondary_item):
+
+                if not withdraw_if_in_stock(screenshot_of_tab_ii, unfinished_potion, qty):
                     self.transition_state(PotionState.FAILED)
                     continue
                 
@@ -102,11 +115,11 @@ class MakePotion:
                 continue
             
             elif self.state == PotionState.COMBINE_INGREDIENTS:
-                click(wait(template=unfinished_potion, timeout=1))
                 click(wait(template=secondary_item, timeout=1))
+                click(wait(template=unfinished_potion, timeout=1))
                 sleep(1)
                 press('space')
-                sleep(18)
+                sleep(timeout)
                 self.transition_state(PotionState.SUCCESS)
                 continue
 

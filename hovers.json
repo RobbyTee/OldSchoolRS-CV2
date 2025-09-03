@@ -5,7 +5,8 @@
       "items": [
           "Avantoe", "Kwuarm", 
           "Ranarr weed", "Snapdragon", 
-          "Vial of water"
+          "Vial of water", "Amylase crystal",
+          "Super energy(4)"
       ],
       "condition": "qty > 1",
       "hovers": [
