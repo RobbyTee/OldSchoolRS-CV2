@@ -151,7 +151,7 @@ class Fungus:
                         break
                     else:
                         click(fungi)
-                        sleep(3)
+                        sleep(1.5)
                     
                 click(wait(Pathing.step_3, bounds=minimap.bounds))
                 sleep(2)
