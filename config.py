@@ -5,22 +5,23 @@ BANK_PIN = "1214"  # Replace with your actual bank pin as a string of 4 digits
 # BEDTIME
 ## The times between which the script will "sleep".
 START = 22
-END = 5
+END = 7
 ## Do you still want to do birdhouse and farm runs?
 DO_RUNS = True
 ## How many duplicate tasks to add?
-DUPLICATE = 5
+DUPLICATE = 4
+
 
 # TASKS
 ## Repeating tasks
 BIRDHOUSE_RUN = True
 HERB_RUN = True
 ## AFK Tasks
-MAHOGANY_TREES = False
+MAHOGANY_TREES = True
 FUNGUS = True
 PICKPOCKET = False
 UNFINISHED_POTIONS = True
-POTIONS = True
+COMBINE_STUFF = True
 
 
 # DIARIES
@@ -61,9 +62,11 @@ KWUARM = True
 SNAPDRAGON = True
 
 
-# MAKE POTIONS
+# COMBINE ITEMS
 ## Choose only one (for now)
-SUPER_ENERGY = True
+SUPER_ENERGY = False
+STAMINA = True
+GLASS_ORB = True
 
 
 # BANK SETUP
