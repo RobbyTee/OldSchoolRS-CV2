@@ -56,6 +56,10 @@ class Items:
     amylase_crystal = r + "amylase_crystal.png"
     super_energy = r + "super_energy.png"
 
+    # Crafting
+    glassblowing_pipe = r + "glassblowing_pipe.png"
+    molten_glass = r + "molten_glass.png"
+
 
 class Bank:
     """
