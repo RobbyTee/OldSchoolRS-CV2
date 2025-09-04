@@ -3,14 +3,14 @@ import random
 from config import (
     BIRDHOUSE_RUN, HERB_RUN, 
     MAHOGANY_TREES, FUNGUS, PICKPOCKET, 
-    UNFINISHED_POTIONS, POTIONS, DUPLICATE,
+    UNFINISHED_POTIONS, COMBINE_STUFF, DUPLICATE,
     START, END, DO_RUNS
 )
 from tasks.birdhouse_run import BirdhouseRun
 from tasks.fungus import Fungus
 from tasks.mahogany_logs import ChopMahoganyTrees
 from tasks.make_unf_potions import MakeUnfPotion
-from tasks.make_potions import MakePotion
+from tasks.combine_items import CombineItems
 from tasks.master_farmer import Pickpocket
 from tasks.farm_run import FarmRun
 from runelite_library.check_charges import log_use
@@ -93,8 +93,8 @@ def main():
             task_registry["Pickpocket Master Farmer"] = Pickpocket
         if UNFINISHED_POTIONS:
             task_registry["Unfinished Potions"] = MakeUnfPotion
-        if POTIONS:
-            task_registry["Make Potions"] = MakePotion
+        if COMBINE_STUFF:
+            task_registry["Combine Items"] = CombineItems
 
         if task_registry:
             login()

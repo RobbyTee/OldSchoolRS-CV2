@@ -41,10 +41,10 @@ def withdraw_if_in_stock(screenshot, item, quantity):
         return False
 
 
-class PotionState(Enum):
+class ItemState(Enum):
     INIT = auto()
     OPEN_BANK = auto()
-    CHOOSE_POTION = auto()
+    CHOOSE_RECIPE = auto()
     WITHDRAW_INGREDIENTS = auto()
     COMBINE_INGREDIENTS = auto()
     MAKE_SUPER_ENERGY = auto()
@@ -52,79 +52,79 @@ class PotionState(Enum):
     FAILED = auto()
 
 
-class MakePotion:
+class CombineItems:
     def transition_state(self, transition_to_state):
         self.state = transition_to_state
         log_state(self.state)
     
     
     def start(self):
-        self.state = PotionState.INIT
+        self.state = ItemState.INIT
 
         while True:
-            if self.state == PotionState.INIT:
-                self.transition_state(PotionState.OPEN_BANK)
+            if self.state == ItemState.INIT:
+                self.transition_state(ItemState.OPEN_BANK)
                 continue
 
-            elif self.state == PotionState.OPEN_BANK:
+            elif self.state == ItemState.OPEN_BANK:
                 if not open_bank():
-                    self.transition_state(PotionState.FAILED)
+                    self.transition_state(ItemState.FAILED)
                     continue
 
                 if not click(wait(template=Bank.tab_ii, timeout=1)):
-                    self.transition_state(PotionState.FAILED)
+                    self.transition_state(ItemState.FAILED)
                     continue
                 
                 if not click(wait(template=Bank.deposit_inventory, timeout=1)):
-                    self.transition_state(PotionState.FAILED)
+                    self.transition_state(ItemState.FAILED)
                     continue
                 
                 sleep(1.5)
                 screenshot_of_tab_ii = capture_runelite_window()
-                self.transition_state(PotionState.CHOOSE_POTION)
+                self.transition_state(ItemState.CHOOSE_RECIPE)
             
-            elif self.state == PotionState.CHOOSE_POTION:
+            elif self.state == ItemState.CHOOSE_RECIPE:
                 if SUPER_ENERGY:
-                    unfinished_potion = Items.avantoe_potion_unf
+                    primary_item = Items.avantoe_potion_unf
                     secondary_item = Items.mort_myre_fungus
                     qty = 14
                     timeout = 18
-                    self.transition_state(PotionState.WITHDRAW_INGREDIENTS)
+                    self.transition_state(ItemState.WITHDRAW_INGREDIENTS)
                     continue
                 elif STAMINA:
-                    unfinished_potion = Items.super_energy
+                    primary_item = Items.super_energy
                     secondary_item = Items.amylase_crystal
                     qty = "all"
                     timeout = 32
-                    self.transition_state(PotionState.WITHDRAW_INGREDIENTS)
+                    self.transition_state(ItemState.WITHDRAW_INGREDIENTS)
                 else:
-                    self.transition_state(PotionState.FAILED)
+                    self.transition_state(ItemState.FAILED)
                     continue
                     
-            elif self.state == PotionState.WITHDRAW_INGREDIENTS:
+            elif self.state == ItemState.WITHDRAW_INGREDIENTS:
                 if not withdraw_if_in_stock(screenshot_of_tab_ii, secondary_item, qty):
-                    self.transition_state(PotionState.FAILED)
+                    self.transition_state(ItemState.FAILED)
                     continue
 
-                if not withdraw_if_in_stock(screenshot_of_tab_ii, unfinished_potion, qty):
-                    self.transition_state(PotionState.FAILED)
+                if not withdraw_if_in_stock(screenshot_of_tab_ii, primary_item, qty):
+                    self.transition_state(ItemState.FAILED)
                     continue
                 
                 press('esc')
-                self.transition_state(PotionState.COMBINE_INGREDIENTS)
+                self.transition_state(ItemState.COMBINE_INGREDIENTS)
                 continue
             
-            elif self.state == PotionState.COMBINE_INGREDIENTS:
+            elif self.state == ItemState.COMBINE_INGREDIENTS:
                 click(wait(template=secondary_item, timeout=1))
-                click(wait(template=unfinished_potion, timeout=1))
+                click(wait(template=primary_item, timeout=1))
                 sleep(1)
                 press('space')
                 sleep(timeout)
-                self.transition_state(PotionState.SUCCESS)
+                self.transition_state(ItemState.SUCCESS)
                 continue
 
-            elif self.state == PotionState.SUCCESS:
+            elif self.state == ItemState.SUCCESS:
                 return True
             
-            elif self.state == PotionState.FAILED:
+            elif self.state == ItemState.FAILED:
                 return False
