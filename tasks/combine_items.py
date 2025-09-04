@@ -1,6 +1,7 @@
 from config import (
     SUPER_ENERGY,
-    STAMINA
+    STAMINA,
+    GLASS_ORB
 )
 
 from enum import Enum, auto
@@ -89,17 +90,28 @@ class CombineItems:
                     secondary_item = Items.mort_myre_fungus
                     qty = 14
                     timeout = 18
-                    self.transition_state(ItemState.WITHDRAW_INGREDIENTS)
-                    continue
+                    button = "space"
+    
                 elif STAMINA:
                     primary_item = Items.super_energy
                     secondary_item = Items.amylase_crystal
                     qty = "all"
                     timeout = 32
-                    self.transition_state(ItemState.WITHDRAW_INGREDIENTS)
+                    button = "space"
+                    
+                elif GLASS_ORB:
+                    primary_item = Items.molten_glass
+                    secondary_item = Items.glassblowing_pipe
+                    qty = "all"
+                    timeout = 50
+                    button = "6"
+
                 else:
                     self.transition_state(ItemState.FAILED)
                     continue
+
+                self.transition_state(ItemState.WITHDRAW_INGREDIENTS)
+                continue
                     
             elif self.state == ItemState.WITHDRAW_INGREDIENTS:
                 if not withdraw_if_in_stock(screenshot_of_tab_ii, secondary_item, qty):
@@ -118,7 +130,7 @@ class CombineItems:
                 click(wait(template=secondary_item, timeout=1))
                 click(wait(template=primary_item, timeout=1))
                 sleep(1)
-                press('space')
+                press(button)
                 sleep(timeout)
                 self.transition_state(ItemState.SUCCESS)
                 continue

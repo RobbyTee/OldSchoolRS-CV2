@@ -70,7 +70,8 @@
     },
     {
       "items": [
-        "Ring of dueling('(1)'|'(8)')"
+        "Glassblowing pipe",
+        "Molten glass"
       ],
       "condition": "qty >= 1",
       "hovers": [
