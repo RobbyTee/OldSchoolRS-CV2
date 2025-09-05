@@ -17,17 +17,18 @@ DUPLICATE = 4
 BIRDHOUSE_RUN = True
 HERB_RUN = True
 ## AFK Tasks
-MAHOGANY_TREES = True
-FUNGUS = True
+MAHOGANY_TREES = False
+FUNGUS = False
 PICKPOCKET = False
-UNFINISHED_POTIONS = True
-COMBINE_STUFF = True
-
+UNFINISHED_POTIONS = False
+COMBINE_STUFF = False
+## Must run this one manually with everything else being 'False'!
+AGILITY = False
 
 # DIARIES
-ARDOUGNE_CLOAK = True
+ARDOUGNE_CLOAK = False
 CLOAK_MAX_USES = 3
-EXPLORERS_RING = True
+EXPLORERS_RING = False
 RING_MAX_USES = 3
 
 
@@ -37,7 +38,7 @@ RING_MAX_USES = 3
     # All others: (85, 97, 170)
 ## Mark the logs in inventory color: (150, 180, 30)
 RABBITS_FOOT = True
-LOGS = "magic"
+LOGS = "yew"
 
 
 # HERB RUN
@@ -51,21 +52,21 @@ LOGS = "magic"
     # Catherby
     # Kourend (Hosidius)
     # Farming Guild
-MAGIC_SECATEURS = True
-RAKE = False
+MAGIC_SECATEURS = False
+RAKE = True
 
 
 # MAKE UNFINISHED POTIONS
-RANARR = True
+RANARR = False
 AVANTOE = True
-KWUARM = True
-SNAPDRAGON = True
+KWUARM = False
+SNAPDRAGON = False
 
 
 # COMBINE ITEMS
 ## Choose only one (for now)
 SUPER_ENERGY = False
-STAMINA = True
+STAMINA = False
 GLASS_ORB = True
 
 
