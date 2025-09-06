@@ -81,7 +81,7 @@ class CombineItems:
                     self.transition_state(ItemState.FAILED)
                     continue
                 
-                sleep(1.5)
+                sleep(2)
                 screenshot_of_tab_ii = capture_runelite_window()
                 self.transition_state(ItemState.CHOOSE_RECIPE)
             
