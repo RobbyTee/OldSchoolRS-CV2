@@ -22,6 +22,9 @@ class Items:
     bottomless_bucket = r + "bottomless_bucket.png"
     ring_of_dueling = r + "ring_of_dueling.png"
     rake = r + "rake.png"
+    empty_birdnest = r + "empty_birdnest.png"
+    pestle_and_mortar = r + "empty_birdnest.png"
+
 
     # An image of 5 seeds together
     herb_seed = r + "herb_seeds.png"
