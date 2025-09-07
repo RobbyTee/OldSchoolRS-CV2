@@ -1,7 +1,8 @@
 import pyautogui
+import random
 
 from config import (
-    RANARR, AVANTOE, SNAPDRAGON, KWUARM
+    RANARR, AVANTOE, SNAPDRAGON, KWUARM, TOADFLAX
 )
 from enum import Enum, auto
 from pyautogui import press, moveTo
@@ -36,7 +37,24 @@ class MakeUnfPotion:
         while True:
             if self.state == MakeStates.INIT:
                 self.transition_state(MakeStates.OPEN_BANK)
-
+                
+                herbs = []
+                
+                if RANARR:
+                    herbs.append(Items.clean_ranarr)
+                
+                if AVANTOE:
+                    herbs.append(Items.clean_avantoe)
+                
+                if SNAPDRAGON:
+                    herbs.append(Items.clean_snapdragon)
+                
+                if KWUARM:
+                    herbs.append(Items.clean_kwuarm)
+                
+                if TOADFLAX:
+                    herbs.append(Items.clean_toadflax)
+                
             elif self.state == MakeStates.OPEN_BANK:
                 # Open bank and empty inventory and equipment
                 if open_bank():
@@ -78,65 +96,27 @@ class MakeUnfPotion:
 
             elif self.state == MakeStates.WITHDRAW_HERB:
                 screenshot = capture_runelite_window()
-                if RANARR:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_ranarr)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
-                    
-                if AVANTOE:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_avanatoe)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
 
-                if KWUARM:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_kwuarm)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
+                herb = random.choice(herbs)
 
-                if SNAPDRAGON:
-                    coords = find_by_template(screenshot=screenshot,
-                                              template_path=Items.clean_snapdragon)
-                    moveTo(coords)
-                    herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
-                                       timeout=1)
-                    if herb_exists:
-                        pyautogui.rightClick()
-                        click(wait(template=Bank.withdraw_14))
-                        self.transition_state(MakeStates.COMBINE_INGREDIENTS)
-                        continue
-                    else:
-                        pass
-                
-                log_event("Out of herbs!")
-                self.transition_state(MakeStates.FAILED)
-                continue
+                if not herb:
+                    log_event("Out of herbs!")
+                    self.transition_state(MakeStates.FAILED)
+                    continue
+
+                coords = find_by_template(screenshot=screenshot,
+                                              template_path=herb)
+                moveTo(coords)
+                herb_exists = wait(template=Misc.good, bounds=play_area.bounds, 
+                                    timeout=1)
+                if herb_exists:
+                    pyautogui.rightClick()
+                    click(wait(template=Bank.withdraw_14))
+                    self.transition_state(MakeStates.COMBINE_INGREDIENTS)
+                    continue
+                else:
+                    herbs.remove(herb)
+                    continue
             
             elif self.state == MakeStates.COMBINE_INGREDIENTS:
                 clean_herb = (89, 40, 200)

@@ -23,7 +23,7 @@ class Items:
     ring_of_dueling = r + "ring_of_dueling.png"
     rake = r + "rake.png"
     empty_birdnest = r + "empty_birdnest.png"
-    pestle_and_mortar = r + "empty_birdnest.png"
+    pestle_and_mortar = r + "pestle_and_mortar.png"
 
 
     # An image of 5 seeds together
@@ -46,9 +46,10 @@ class Items:
 
     # Herbs
     clean_ranarr = r + "clean_ranarr.png"
-    clean_avanatoe = r + "clean_avantoe.png"
+    clean_avantoe = r + "clean_avantoe.png"
     clean_kwuarm = r + "clean_kwuarm.png"
     clean_snapdragon = r + "clean_snapdragon.png"
+    clean_toadflax = r + "clean_toadflax.png"
 
     # Unfinished Potions
     vial_of_water = r + "vial_of_water.png"
