@@ -107,7 +107,7 @@ class RooftopAgility:
                 self.transition(AgilityStates.CHECK_FOR_NEXT_OBSTACLE)
             
             elif self.state == AgilityStates.CHECK_FOR_NEXT_OBSTACLE:
-                obstacle = wait(self.agility_obstacle_color, timeout=5, debug=True, bounds=play_area.bounds)
+                obstacle = wait(self.agility_obstacle_color, timeout=5, bounds=play_area.bounds)
                 if not obstacle:
                     self.transition(AgilityStates.FAILED)
                     continue
