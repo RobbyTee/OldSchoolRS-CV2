@@ -68,7 +68,7 @@ SNAPDRAGON = False
 SUPER_ENERGY = False
 STAMINA = False
 GLASS_ORB = True
-
+CRUSH_BIRDNESTS = False
 
 # BANK SETUP
 """

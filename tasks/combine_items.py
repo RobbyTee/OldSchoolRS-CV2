@@ -1,7 +1,8 @@
 from config import (
     SUPER_ENERGY,
     STAMINA,
-    GLASS_ORB
+    GLASS_ORB,
+    CRUSH_BIRDNESTS
 )
 
 from enum import Enum, auto
@@ -105,6 +106,13 @@ class CombineItems:
                     qty = "all"
                     timeout = 50
                     button = "6"
+
+                elif CRUSH_BIRDNESTS:
+                    primary_item = Items.empty_birdnest
+                    secondary_item = Items.pestle_and_mortar
+                    qty = "all"
+                    timeout = 45
+                    button = "space"
 
                 else:
                     self.transition_state(ItemState.FAILED)

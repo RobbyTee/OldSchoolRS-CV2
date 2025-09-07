@@ -71,7 +71,10 @@
     {
       "items": [
         "Glassblowing pipe",
-        "Molten glass"
+        "Molten glass",
+        "Bird nest",
+        "Pestle and mortar",
+        "Toadflax"
       ],
       "condition": "qty >= 1",
       "hovers": [
