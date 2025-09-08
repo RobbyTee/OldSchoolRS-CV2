@@ -498,9 +498,14 @@ class FarmRun:
                             continue
                     else:
                         log_event("Detected diseased herbs. Skipping this farm.", level="warning")
-                        farm += 1
-                        self.transition_state(FarmStates.GO_TO_NEXT_FARM)
-                        continue
+                        if farm == 5:
+                            log_use("farm_run", overwrite=True)
+                            self.transition_state(FarmStates.FINISH_AT_BANK)
+                            continue
+                        else:
+                            farm += 1
+                            self.transition_state(FarmStates.GO_TO_NEXT_FARM)
+                            continue
 
                     self.transition_state(FarmStates.HARVESTING)
                     continue
