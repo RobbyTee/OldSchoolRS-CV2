@@ -54,11 +54,13 @@ class Items:
     # Unfinished Potions
     vial_of_water = r + "vial_of_water.png"
     avantoe_potion_unf = r + "avantoe_potion_unf.png"
+    toadflax_potion_unf = r + "toadflax_potion_unf.png"
 
     # Potion Secondaries
     mort_myre_fungus = r + "mort_myre_fungus.png"
     amylase_crystal = r + "amylase_crystal.png"
     super_energy = r + "super_energy.png"
+    crushed_nest = r + "crushed_nest.png"
 
     # Crafting
     glassblowing_pipe = r + "glassblowing_pipe.png"

@@ -61,7 +61,9 @@
     {
       "items": [
         "Avantoe potion (unf)",
-        "Mort myre fungus"
+        "Mort myre fungus",
+        "Toadflax potion (unf)",
+        "Crushed nest"
       ],
       "condition": "qty >= 14",
       "hovers": [

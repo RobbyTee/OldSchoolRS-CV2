@@ -2,7 +2,8 @@ from config import (
     SUPER_ENERGY,
     STAMINA,
     GLASS_ORB,
-    CRUSH_BIRDNESTS
+    CRUSH_BIRDNESTS,
+    SARADOMIN
 )
 
 from enum import Enum, auto
@@ -112,6 +113,13 @@ class CombineItems:
                     secondary_item = Items.pestle_and_mortar
                     qty = "all"
                     timeout = 45
+                    button = "space"
+
+                elif SARADOMIN:
+                    primary_item = Items.crushed_nest
+                    secondary_item = Items.toadflax_potion_unf
+                    qty = 14
+                    timeout = 16
                     button = "space"
 
                 else:
