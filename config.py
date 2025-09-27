@@ -14,7 +14,7 @@ DUPLICATE = 4
 
 # TASKS
 ## Repeating tasks
-BIRDHOUSE_RUN = True
+BIRDHOUSE_RUN = False
 HERB_RUN = True
 ## AFK Tasks
 MAHOGANY_TREES = False
@@ -61,7 +61,7 @@ RANARR = False
 AVANTOE = True
 KWUARM = False
 SNAPDRAGON = False
-
+TOADFLAX = False
 
 # COMBINE ITEMS
 ## Choose only one (for now)
@@ -69,6 +69,7 @@ SUPER_ENERGY = False
 STAMINA = False
 GLASS_ORB = True
 CRUSH_BIRDNESTS = False
+SARADOMIN = False
 
 # BANK SETUP
 """
