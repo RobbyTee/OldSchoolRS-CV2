@@ -113,6 +113,7 @@ class MakeStaffs():
                     continue
                 
                 press('esc')
+                sleep(1.4)
 
                 inventory_ss = capture_runelite_window()
 
@@ -120,6 +121,8 @@ class MakeStaffs():
                 if not click_fire_staff:
                     self.transition_state(StaffStates.FAILED)
                     continue
+                
+                sleep(1)
 
                 self.transition_state(StaffStates.MAKE_BATTLESTAFFS)
                 continue
