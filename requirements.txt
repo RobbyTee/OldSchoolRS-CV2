@@ -1,0 +1,10 @@
+numpy
+opencv_contrib_python
+opencv_contrib_python
+PyAutoGUI
+scipy
+requests
+pytz
+tzdata
+pywin32
+mss
