@@ -4,7 +4,7 @@ from config import (
     BIRDHOUSE_RUN, HERB_RUN, 
     MAHOGANY_TREES, FUNGUS, PICKPOCKET, 
     UNFINISHED_POTIONS, COMBINE_STUFF, DUPLICATE,
-    AGILITY,
+    AGILITY, BATTLESTAFFS,
     START, END, DO_RUNS
 )
 from tasks.birdhouse_run import BirdhouseRun
@@ -15,6 +15,7 @@ from tasks.combine_items import CombineItems
 from tasks.master_farmer import Pickpocket
 from tasks.farm_run import FarmRun
 from tasks.agility import RooftopAgility
+from tasks.battlestaffs import MakeStaffs
 from runelite_library.check_charges import log_use
 from runelite_library.window_management import activate_app
 from runelite_library.check_charges import check_time
@@ -99,6 +100,8 @@ def main():
             task_registry["Combine Items"] = CombineItems
         if AGILITY:
             task_registry["Agility"] = RooftopAgility
+        if BATTLESTAFFS:
+            task_registry["Make Battlestaffs"] = MakeStaffs
 
         if task_registry:
             login()

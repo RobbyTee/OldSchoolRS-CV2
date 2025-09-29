@@ -24,7 +24,7 @@ class Items:
     rake = r + "rake.png"
     empty_birdnest = r + "empty_birdnest.png"
     pestle_and_mortar = r + "pestle_and_mortar.png"
-
+    fire_battlestaff = r + "fire_battlestaff.png"
 
     # An image of 5 seeds together
     herb_seed = r + "herb_seeds.png"
@@ -65,6 +65,11 @@ class Items:
     # Crafting
     glassblowing_pipe = r + "glassblowing_pipe.png"
     molten_glass = r + "molten_glass.png"
+    battlestaff = r + "battlestaff.png"
+    water_orb = r + "water_orb.png"
+    earth_orb = r + "earth_orb.png"
+    fire_orb = r + "fire_orb.png"
+    air_orb = r + "air_orb.png"
 
 
 class Bank:
@@ -205,7 +210,7 @@ class Normal_Spellbook:
     home_tele = r + "home.png"
     lumby_tele = r + "lumbridge.png"
     falador_tele = r + "falador.png"
-
+    high_alch = r + "high_alch.png"
 
 class Interfaces:
     """

@@ -15,9 +15,15 @@ from runelite_library.filters import (find_by_template, coordinate_in_area,
                             find_by_cic)
 from time import sleep
 from too_many_items import Pathing
-
+from tasks.battlestaffs import MakeStaffs
 import random
 
 activate_app('runelite')
 
-print(check_charges('ardougne_cloak'))
+completed_staff = (155, 236, 228)
+orb = (34, 144, 133)
+battlestaff = (30, 130, 70)
+nature_runes = (135, 255, 135)
+
+m = MakeStaffs()
+m.start()
