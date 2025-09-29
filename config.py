@@ -5,7 +5,7 @@ BANK_PIN = "1214"  # Replace with your actual bank pin as a string of 4 digits
 # BEDTIME
 ## The times between which the script will "sleep".
 START = 22
-END = 7
+END = 6
 ## Do you still want to do birdhouse and farm runs?
 DO_RUNS = True
 ## How many duplicate tasks to add?
@@ -14,7 +14,7 @@ DUPLICATE = 4
 
 # TASKS
 ## Repeating tasks
-BIRDHOUSE_RUN = False
+BIRDHOUSE_RUN = True
 HERB_RUN = True
 ## AFK Tasks
 MAHOGANY_TREES = False
@@ -22,14 +22,14 @@ FUNGUS = False
 PICKPOCKET = False
 UNFINISHED_POTIONS = False
 COMBINE_STUFF = False
-BATTLESTAFFS = False
+BATTLESTAFFS = True
 ## Must run this one manually with everything else being 'False'!
 AGILITY = False
 
 # DIARIES
-ARDOUGNE_CLOAK = False
+ARDOUGNE_CLOAK = True
 CLOAK_MAX_USES = 3
-EXPLORERS_RING = False
+EXPLORERS_RING = True
 RING_MAX_USES = 3
 
 
@@ -39,7 +39,7 @@ RING_MAX_USES = 3
     # All others: (85, 97, 170)
 ## Mark the logs in inventory color: (150, 180, 30)
 RABBITS_FOOT = True
-LOGS = "yew"
+LOGS = "magic"
 
 
 # HERB RUN
@@ -53,8 +53,8 @@ LOGS = "yew"
     # Catherby
     # Kourend (Hosidius)
     # Farming Guild
-MAGIC_SECATEURS = False
-RAKE = True
+MAGIC_SECATEURS = True
+RAKE = False
 
 
 # MAKE UNFINISHED POTIONS

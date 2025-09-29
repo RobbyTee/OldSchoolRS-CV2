@@ -150,8 +150,9 @@ class MakeStaffs():
                     continue
                 
                 alch_battlestaff = click(wait(rgb_color=self.completed_staff, timeout=5))
-                sleep(4)
-                if not alch_battlestaff:
+                if alch_battlestaff:
+                    sleep(4)
+                else:
                     leftClick()
                     self.transition_state(StaffStates.SUCCESS)
                     continue
