@@ -22,6 +22,7 @@ FUNGUS = False
 PICKPOCKET = False
 UNFINISHED_POTIONS = False
 COMBINE_STUFF = False
+BATTLESTAFFS = False
 ## Must run this one manually with everything else being 'False'!
 AGILITY = False
 
@@ -63,6 +64,7 @@ KWUARM = False
 SNAPDRAGON = False
 TOADFLAX = False
 
+
 # COMBINE ITEMS
 ## Choose only one (for now)
 SUPER_ENERGY = False
@@ -70,6 +72,12 @@ STAMINA = False
 GLASS_ORB = True
 CRUSH_BIRDNESTS = False
 SARADOMIN = False
+
+
+# BATTLESTAFFS
+STAFF = "water" # "fire", "earth", "air"
+HIGH_ALCHEMY = True
+
 
 # BANK SETUP
 """
