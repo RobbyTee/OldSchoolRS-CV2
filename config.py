@@ -22,7 +22,7 @@ FUNGUS = False
 PICKPOCKET = False
 UNFINISHED_POTIONS = False
 COMBINE_STUFF = False
-BATTLESTAFFS = True
+BATTLESTAFFS = False
 ## Must run this one manually with everything else being 'False'!
 AGILITY = False
 

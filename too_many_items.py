@@ -3,7 +3,7 @@ class Items:
     All items to be used from the inventory, withdrawn from the bank, and
     seen through all of Gielinor.
     """
-    r = 'Images\\items\\'
+    r = './Images/items/'
 
     hammer = r + "hammer.png"
     chisel = r + "chisel.png"
@@ -77,7 +77,7 @@ class Bank:
     Banks seen across the world of Gielinor and the different interfaces
     it has to click on.
     """
-    r = 'Images\\bank\\'
+    r = './Images/bank/'
     
     # Bank
     bank = (50, 30, 210)
@@ -120,7 +120,7 @@ class Login:
     """
     All the different login icons to get into the game.
     """
-    r = 'Images\\login\\'
+    r = './Images/login/'
 
     play_now_button = r + "play_now.png"
     click_to_play_button = r + "click_here_to_play.png"
@@ -134,7 +134,7 @@ class Armor:
     """
     Anything wearable.
     """
-    r = 'Images\\armor\\'
+    r = './Images/armor/'
 
     ardougne_cloak = r + "ardougne_cloak.png"
     rogue_boots = r + "rogue_boots.png"
@@ -148,7 +148,7 @@ class Menu:
     """
     Subcontext menus to click on when using an item.
     """
-    r = 'Images\\menu\\'
+    r = './Images/menu/'
 
     # Jewelry
     rub = r + "rub.png"
@@ -182,7 +182,7 @@ class Misc:
     """
     If it doesn't fall into any of the other categories, it'll go here.
     """
-    r = 'Images\\misc\\'
+    r = './Images/misc/'
 
     # Currently woodcutting
     woodcutting = r + "woodcutting.png"
@@ -199,7 +199,7 @@ class Normal_Spellbook:
     """
     Any spell found in all the spell boooks. 
     """
-    r = 'Images\\normal_spellbook\\'
+    r = './Images/normal_spellbook/'
 
     trollheim_tele = r + "trollheim.png"
     varrock_tele = r + "varrock.png"
@@ -229,7 +229,7 @@ class Objects:
     """
     Most things physical around the game that you'll interact with.
     """
-    r = 'Images\\objects\\'
+    r = './Images/objects/'
 
     bh1 = r + "birdhouse_1.png"
     bh2 = r + "birdhouse_2.png"
@@ -240,7 +240,7 @@ class Runes:
     """
     All the magical runes.
     """
-    r = 'Images\\runes\\'
+    r = './Images/runes/'
 
     air = r + "air.png"
     earth = r + "earth.png"
@@ -305,6 +305,6 @@ class Food:
     """
     Anything edible!
     """
-    r = 'Images\\food\\'
+    r = './Images/food/'
 
     lobster = r + "lobster.png"

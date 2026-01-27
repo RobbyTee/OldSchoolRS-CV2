@@ -335,13 +335,16 @@ class FarmRun:
                     continue
 
                 templates = [Bank.deposit_inventory, Bank.deposit_equipment]
-
-                screenshot = capture_runelite_window()
-                coords = find_by_templates(templates, screenshot, 
-                                            bounds=whole.bounds)
-                
-                for coord in coords:
-                    click(coord)
+                for template in templates:
+                    if not click(wait(template=template, timeout=0.5)):
+                        exit(1)
+    
+                #screenshot = capture_runelite_window()
+                #coords = find_by_templates(templates, screenshot, 
+                #                            bounds=whole.bounds)
+                #
+                #for coord in coords:
+                #    click(coord)
 
                 log_event("Bank opened and deposited inventory & equipment.")
                 self.transition_state(FarmStates.GEAR_UP)
@@ -363,11 +366,15 @@ class FarmRun:
                 if MAGIC_SECATEURS:
                     templates.append(Items.magic_secateurs)
 
-                equipment = find_by_templates(templates, 
-                                              tab_iii, 
-                                              bounds=play_area.bounds)
-                for item in equipment:
-                    click(item)
+                for template in templates:
+                    if not click(wait(template=template, timeout=0.5)):
+                        exit(1)
+
+                #equipment = find_by_templates(templates, 
+                #                              tab_iii, 
+                #                              bounds=play_area.bounds)
+                #for item in equipment:
+                #    click(item)
                 
                 enough_stock, coords_of_herb_seed = self.check_stock(tab_iii, Items.herb_seed)
                 if enough_stock:
@@ -390,10 +397,14 @@ class FarmRun:
                 if explorers_ring:
                     templates += [Items.explorers_ring]
                 if templates:
-                    equipment = find_by_templates(templates, tab_all, 
-                                                bounds=play_area.bounds)
-                    for item in equipment:
-                        click(item)
+                    for template in templates:
+                        if not click(wait(template=template, timeout=0.5)):
+                            exit(1)
+                            
+                    #equipment = find_by_templates(templates, tab_all, 
+                    #                            bounds=play_area.bounds)
+                    #for item in equipment:
+                    #    click(item)
 
                 click(find_by_template(tab_all,
                                        Items.skills_necklace))

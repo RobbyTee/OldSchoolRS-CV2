@@ -63,11 +63,14 @@ class BirdhouseRun:
                 # Open bank and empty inventory and equipment
                 if open_bank():
                     templates = [Bank.deposit_equipment, Bank.deposit_inventory]
-                    screenshot = capture_runelite_window()
-                    coords = find_by_templates(templates, screenshot, 
-                                               bounds=whole.bounds)
-                    for coord in coords:
-                        click(coord)
+                    for template in templates:
+                        if not click(wait(template=template, timeout=0.5)):
+                            exit(1)
+                    #screenshot = capture_runelite_window()
+                    #coords = find_by_templates(templates, screenshot, 
+                    #                           bounds=whole.bounds)
+                    #for coord in coords:
+                    #    click(coord)
                     state = BirdhouseState.WITHDRAW_EQUIPMENT
                     log_state(state)
                 else:
@@ -101,16 +104,24 @@ class BirdhouseRun:
                     else:
                         log_event("Not enough logs to do a full birdhouse run!", level="error")
                         return False
-                    equipment = [Items.chisel, Items.hammer]
+                    equipment = [Items.chisel, Items.hammer, Items.digsite_pendant]
                     if RABBITS_FOOT:
                         equipment += [Items.rabbits_foot]
-                    coords = find_by_templates(equipment, tab_iii, whole.bounds)
-                    for item in coords:
-                        click(item)
+                    
+                    for template in equipment:
+                        if not click(wait(template=template, timeout=0.5)):
+                            log_event(f"Could not find {template}", level="error")
+                            print("Error withdrawing items. Check logs")
+                            exit(1)
+                    
+                    #coords = find_by_templates(equipment, tab_iii, whole.bounds)
+                    #for item in coords:
+                    #    click(item)
                     # find_by_templates() will not find the digsite pendant
-                    if not click(wait(template=Items.digsite_pendant)):
-                        log_event("No digsite pendant found in tab III.", level="error")
-                        return False
+                    #if not click(wait(template=Items.digsite_pendant)):
+                    #    log_event("No digsite pendant found in tab III.", level="error")
+                    #    return False
+
                     # Quantity 10 for 40 Hammerstone seeds
                     click(wait(template=Bank.quantity_10))
                     seeds_to_withdraw = find_by_template(screenshot=tab_iii,

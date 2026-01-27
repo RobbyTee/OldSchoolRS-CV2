@@ -6,5 +6,4 @@ scipy
 requests
 pytz
 tzdata
-pywin32
 mss

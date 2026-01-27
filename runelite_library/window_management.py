@@ -1,51 +1,41 @@
 import mss
 import numpy as np
-import win32gui
-import win32con
-import ctypes
+import subprocess
 
 from time import sleep
 
 
-def activate_app(app_name):
-    def enum_windows_callback(hwnd, wildcard):
-        if win32gui.IsWindowVisible(hwnd):
-            window_text = win32gui.GetWindowText(hwnd)
-            if app_name.lower() in window_text.lower():
-                win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
-                win32gui.SetForegroundWindow(hwnd)
-                return False  # Stop enumeration
-        return True
-
-    win32gui.EnumWindows(lambda hwnd, _: enum_windows_callback(hwnd, app_name), None)
-    sleep(.1)
-    return True
-
-
-def make_dpi_aware():
-    try:
-        ctypes.windll.shcore.SetProcessDpiAwareness(2)  # Per-monitor DPI aware
-    except Exception:
-        try:
-            ctypes.windll.user32.SetProcessDPIAware()
-        except Exception:
-            pass
+def activate_app(appname):
+    name = appname.lower()
+    result = subprocess.check_output(['wmctrl','-l']).decode()
+    for line in result.splitlines():
+        if appname.lower() in line.lower():
+            subprocess.run(['wmctrl','-a', name])
+            sleep(0.2)
+            return True
+    return False
 
 
 def get_active_window_bounds():
-    make_dpi_aware()
-    hwnd = win32gui.GetForegroundWindow()
-    if hwnd:
-        # Get client rect (relative to window)
-        left, top, right, bottom = win32gui.GetClientRect(hwnd)
+    win_id = subprocess.check_output(
+        ['xdotool', 'getactivewindow']
+    ).decode().strip()
 
-        # Convert to screen coordinates
-        top_left = win32gui.ClientToScreen(hwnd, (left, top))
-        bottom_right = win32gui.ClientToScreen(hwnd, (right, bottom))
-        
-        return (*top_left, *bottom_right)
+    bounds = subprocess.check_output(
+        ['xdotool', 'getwindowgeometry', '--shell', win_id]
+    ).decode()
 
-    return None
+    values = {}
+    for line in bounds.splitlines():
+        key, val = line.split('=')
+        values[key] = int(val)
+
+    x1 = values["X"]
+    y1 = values["Y"]
+    x2 = x1 + values["WIDTH"]
+    y2 = y1 + values["HEIGHT"]
+
+    return x1, y1, x2, y2
 
 
 def offset_area_to_absolute(relative_area, client_bounds):
