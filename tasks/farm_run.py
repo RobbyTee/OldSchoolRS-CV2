@@ -57,8 +57,7 @@ class FarmRun:
 
     def teleport_outside_house(self):
         press(Interfaces.spells_icon)
-        screenshot = capture_runelite_window()
-        if not right_click(find_by_template(screenshot, Normal_Spellbook.house_tele)):
+        if not right_click(wait(template=Normal_Spellbook.house_tele)):
             return False
         if not click(wait(template=Menu.outside)):
             return False

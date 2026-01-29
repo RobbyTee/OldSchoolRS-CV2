@@ -123,23 +123,23 @@ def test_runes():
 
         elif state == RuneStates.FAILED:
             press('esc')
-            print("Something failed testing runes. Check logs.")
+            print("Something failed testing runes.")
             return 1
 
         elif state == RuneStates.SUCCESS:
             press('esc')
-            print("Completed testing runes! Check logs.")
+            print("Completed testing runes!")
             return 0
 
 
 if __name__ == "__main__":
     bank_result = test_bank_interfaces()
     rune_result = test_runes()
+    results = [bank_result, rune_result]
 
-    if any [
-        bank_result,
-        rune_result
-    ] == 1:
+    if any (results) == 1:
+        print("At least one test failed to finish. Check logs for results.")
         exit(1)
     else:
+        print("Every test completed. Check logs for results.")
         exit(0)

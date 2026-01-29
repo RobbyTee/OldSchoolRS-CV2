@@ -7,7 +7,7 @@ from runelite_library.interaction import click
 from runelite_library.logger import log_event, log_state
 from runelite_library.recover import recover_to_bank
 from too_many_items import Bank
-
+from time import sleep
 
 class BankStates(Enum):
     INIT = auto()
@@ -45,8 +45,11 @@ def open_bank(start_state=BankStates.INIT):
                             timeout=2)
             if bank_pin:
                 press(BANK_PIN[0])
+                sleep(0.5)
                 press(BANK_PIN[1])
+                sleep(0.4)
                 press(BANK_PIN[2])
+                sleep(0.6)
                 press(BANK_PIN[3])
                 
             state = BankStates.VERIFY_OPEN_BANK
