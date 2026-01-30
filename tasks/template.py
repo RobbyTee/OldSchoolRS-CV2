@@ -14,9 +14,6 @@ from too_many_items import Pathing, Bank, Items, Menu, Objects, Misc
 class StaffStates(Enum):
     INIT = auto()
     OPEN_BANK = auto()
-    WITHDRAW_ITEMS = auto()
-    MAKE_BATTLESTAFFS = auto()
-    ALCH_STAFFS = auto()
     SUCCESS = auto()
     FAILED = auto()
 
@@ -41,12 +38,21 @@ class MakeStaffs():
 
                 templates = [Bank.deposit_inventory, Bank.deposit_equipment]
 
-                screenshot = capture_runelite_window()
-                coords = find_by_templates(templates, screenshot, 
-                                            bounds=whole.bounds)
-                
-                for coord in coords:
-                    click(coord)
+                for template in templates:
+                    if not click(wait(template=template, timeout=0.5)):
+                        state = StaffStates.FAILED
+                        log_state(state)
+                        continue
 
                 log_event("Bank opened and deposited inventory & equipment.")
-                self.transition_state(StaffStates.WITHDRAW_ITEMS)
+                self.transition_state(StaffStates.SUCCESS)
+
+            elif self.state == StaffStates.SUCCESS:
+                log_event("Completed successfully")
+                log_state(state)
+                exit(0)
+
+            elif self.state == StaffStates.FAILED:
+                log_event("Something went wrong")
+                log_state(state)
+                exit(1)            

@@ -427,3 +427,43 @@ def coordinate_in_area(bounds, screenshot=None , debug=False):
     absolute_y = y + rand_y
 
     return (absolute_x, absolute_y)
+
+
+def find_all_by_template(screenshot, template_path, tolerance=0.6, debug=False):
+    x1, y1 = get_active_window_bounds()[:2]
+
+    # Strip alpha if needed
+    if screenshot.shape[2] == 4:
+        screenshot = screenshot[:, :, :3]
+
+    template = cv2.imread(template_path, cv2.IMREAD_COLOR)
+    if template is None:
+        raise FileNotFoundError(f"Template not found at {template_path}")
+
+    th, tw = template.shape[:2]
+
+    result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+
+    # Get all locations above the threshold
+    ys, xs = np.where(result >= tolerance)
+
+    matches = []
+    for (x, y) in zip(xs, ys):
+        center_x = x + tw // 2 + x1
+        center_y = y + th // 2 + y1
+        matches.append((int(center_x), int(center_y)))
+
+    if debug:
+        debug_img = screenshot.copy()
+        for (x, y) in zip(xs, ys):
+            cv2.rectangle(
+                debug_img,
+                (x, y),
+                (x + tw, y + th),
+                (0, 255, 0),
+                2
+            )
+        cv2.imwrite("template_match_debug_all.png", debug_img)
+        print(f"Found {len(matches)} matches")
+
+    return matches

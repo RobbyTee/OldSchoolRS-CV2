@@ -30,6 +30,8 @@ class Items:
     herb_seed = r + "herb_seeds.png"
     limpwurt_seed = r + "limpwurt_seeds.png"
 
+    sapling = r + "sapling.png"
+
     # Equipment
     dramen_staff = r + "dramen_staff.png"
     sickle = r + "sickle.png"
@@ -175,6 +177,7 @@ class Menu:
     castle_wars = r + "castle_wars.png"
 
     # Farming
+    saplings = r + "saplings.png"
     diseased_herbs = r + "diseased_herbs.png"
 
 
