@@ -20,7 +20,7 @@ HERB_RUN = True
 MAHOGANY_TREES = False
 FUNGUS = False
 PICKPOCKET = False
-UNFINISHED_POTIONS = False
+UNFINISHED_POTIONS = True
 COMBINE_STUFF = False
 BATTLESTAFFS = False
 ## Must run this one manually with everything else being 'False'!
@@ -62,7 +62,7 @@ RANARR = False
 AVANTOE = True
 KWUARM = False
 SNAPDRAGON = False
-TOADFLAX = False
+TOADFLAX = True
 
 
 # COMBINE ITEMS

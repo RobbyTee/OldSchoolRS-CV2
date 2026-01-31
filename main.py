@@ -105,7 +105,8 @@ def main():
 
         if task_registry:
             login()
-            with open("utils\\last_task", "r") as file:
+            
+            with open("./utils/last_task", "r") as file:
                 last_task = file.read().strip()
             
             entries = []
