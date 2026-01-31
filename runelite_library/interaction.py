@@ -38,7 +38,7 @@ def click_no_move(position):
 
 
 def click_compass():
-    bounds = compass()
+    bounds = compass.bounds
     if not bounds:
         raise ValueError("Could not get compass bounds")
 

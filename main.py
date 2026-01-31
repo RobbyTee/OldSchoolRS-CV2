@@ -18,6 +18,7 @@ from tasks.agility import RooftopAgility
 from tasks.battlestaffs import MakeStaffs
 from runelite_library.check_charges import log_use
 from runelite_library.window_management import activate_app
+from runelite_library.interaction import pan_up, click_compass
 from runelite_library.check_charges import check_time
 from runelite_library.login import login, logout_now
 from time import sleep
@@ -38,6 +39,8 @@ def main():
     log_use("activity.log", overwrite=True)
     while True:
         activate_app('runelite')
+        pan_up()
+        click_compass()
 
         if not DO_RUNS:
             if is_bedtime():

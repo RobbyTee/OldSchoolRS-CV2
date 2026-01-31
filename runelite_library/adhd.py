@@ -1,28 +1,36 @@
+from pyautogui import position, press, moveTo
+from runelite_library.area import inventory
+from runelite_library.filters import coordinate_in_area
+from runelite_library.window_management import capture_runelite_window
+from time import sleep
+
 import pyautogui
 import random
-import too_many_items as tmi
+from too_many_items import Interfaces
 
-from environment import find_by_template
-from interaction import click
-from runelite_library.environment import inventory_area, minimap_area, play_area
-from time import sleep
+
 
 
 def adhd():
-    decision = int(random.uniform(0,20))
+    decision = 2 #int(random.uniform(0,20))
+    random_time = random.uniform(0.25, 0.8)
     if decision == 1:
-        bounds = inventory_area()
-        click(find_by_template(tmi.Interfaces.stats_icon, bounds=bounds))
-        sleep(3)
-        click(find_by_template(tmi.Interfaces.inventory_icon, bounds=bounds))
+        x,y = position()
+        random_int = random.uniform(1, 60)
+        x = x + random_int
+        y = y + random_int
+        moveTo(x, y, duration=random_time, tween=pyautogui.easeInOutQuad)
 
     elif decision == 2:
-        random_x = int(random.uniform(53, 800))
-        random_y = int(random.uniform(53, 800))
-        random_sleep = int(random.uniform(0, 28))
-        print(f'ADHD moment. Sleeping for {random_sleep} seconds.')
-        pyautogui.moveTo(random_x, random_y)
-        sleep(random_sleep)
+        press(Interfaces.stats_icon)
+        sleep(1)
+        screenshot = capture_runelite_window()
+        x,y = coordinate_in_area(bounds=inventory.bounds,
+                                          screenshot=screenshot)
+        moveTo(x, y, duration=random_time, tween=pyautogui.easeInOutQuad)
+        sleep(random.uniform(1, 5))
+        press(Interfaces.inventory_icon)
+        
 
     elif decision == 3:
         pass
