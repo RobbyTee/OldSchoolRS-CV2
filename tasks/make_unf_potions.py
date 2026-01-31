@@ -6,6 +6,7 @@ from config import (
 )
 from enum import Enum, auto
 from pyautogui import press, moveTo
+from runelite_library.adhd import adhd
 from runelite_library.area import whole, inventory, play_area
 from runelite_library.filters import find_by_template, wait, find_by_templates
 from runelite_library.interaction import click, right_click
@@ -131,6 +132,7 @@ class MakeUnfPotion:
                     continue
                 sleep(1)
                 press('space')
+                adhd()
                 sleep(10)
                 self.transition_state(MakeStates.SUCCESS)
                 

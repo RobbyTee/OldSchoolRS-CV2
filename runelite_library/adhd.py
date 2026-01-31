@@ -12,7 +12,7 @@ from too_many_items import Interfaces
 
 
 def adhd():
-    decision = 2 #int(random.uniform(0,20))
+    decision = int(random.uniform(0,20))
     random_time = random.uniform(0.25, 0.8)
     if decision == 1:
         x,y = position()
