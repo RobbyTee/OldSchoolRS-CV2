@@ -6,7 +6,7 @@ from runelite_library.filters import wait
 from runelite_library.interaction import click
 from runelite_library.logger import log_event, log_state
 from runelite_library.recover import recover_to_bank
-from too_many_items import Bank
+from too_many_items import Bank, Items
 from time import sleep
 
 class BankStates(Enum):
@@ -80,3 +80,20 @@ def open_bank(start_state=BankStates.INIT):
                 state = BankStates.CLICK_BANK
             else:
                 return False
+            
+
+def withdraw_skills_necklace():
+    """
+    With the bank open, this will withdraw 1 skills necklace
+    from the tab "ALL".
+    """
+    to_withdraw_necklace = [
+        Bank.quantity_1, Bank.tab_all, Items.skills_necklace
+    ]
+
+    for template in to_withdraw_necklace:
+        if not click(wait(template=template, timeout=5)):
+            log_event(f"Could not find {template}")
+            return False
+    
+    return True

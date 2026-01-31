@@ -106,6 +106,7 @@ class Bank:
 
     # Misc Bank
     bank_pin_screen = r + "bank_pin_screen.png"
+    withdraw_5 = r + "withdraw_5.png"
     withdraw_14 = r + "withdraw_14.png"
     withdraw_40 = r + "withdraw_40.png"
     withdraw_x = r + "withdraw_x.png"
@@ -116,6 +117,7 @@ class Bank:
     # Specific locations
     fossil_island = r + "fossil_island.png"
     hosidius = r + "hosidius.png"
+    farming_guild = r + "farming_guild.png"
 
 
 class Login:
@@ -177,8 +179,16 @@ class Menu:
     castle_wars = r + "castle_wars.png"
 
     # Farming
+    ## In the Seed Vault interface
     saplings = r + "saplings.png"
+    willow_sapling = r + "willow_sapling.png"
+    maple_sapling = r + "maple_sapling.png"
+    yew_sapling = r + "yew_sapling.png"
+    magic_sapling = r + "magic_sapling.png"
+    ## Mouse tooltip
     diseased_herbs = r + "diseased_herbs.png"
+
+
 
 
 class Misc:
@@ -311,3 +321,16 @@ class Food:
     r = './Images/food/'
 
     lobster = r + "lobster.png"
+
+
+class Jewelry:
+    """
+    Teleport jewelry!
+    """
+    r = './Images/jewelry/'
+
+    digsite_pendant = r + "digsite_pendant.png"
+    explorers_ring = r + "explorers_ring.png"
+    ring_of_dueling = r + "ring_of_dueling.png"
+    skills_necklace = r + "skills_necklace.png"
+    

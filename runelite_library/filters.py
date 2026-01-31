@@ -429,7 +429,7 @@ def coordinate_in_area(bounds, screenshot=None , debug=False):
     return (absolute_x, absolute_y)
 
 
-def find_all_by_template(screenshot, template_path, tolerance=0.6, debug=False):
+def find_all_by_template(screenshot, template_path, tolerance=0.6, debug=False, bounds=None):
     x1, y1 = get_active_window_bounds()[:2]
 
     # Strip alpha if needed
@@ -440,9 +440,21 @@ def find_all_by_template(screenshot, template_path, tolerance=0.6, debug=False):
     if template is None:
         raise FileNotFoundError(f"Template not found at {template_path}")
 
+    if bounds is None:
+        bounds = whole.bounds
+
+    window_origin = get_active_window_bounds()[:2]
+    x1, y1 = window_origin
+    x, y, w, h = bounds["left"], bounds["top"], bounds["width"], bounds["height"]
+    screenshot_left = x - x1
+    screenshot_top = y - y1
+
+    cropped = screenshot[screenshot_top:screenshot_top + h,
+                        screenshot_left:screenshot_left + w]
+
     th, tw = template.shape[:2]
 
-    result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+    result = cv2.matchTemplate(cropped, template, cv2.TM_CCOEFF_NORMED)
 
     # Get all locations above the threshold
     ys, xs = np.where(result >= tolerance)
