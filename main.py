@@ -127,7 +127,7 @@ def main():
             for name, cls in task_registry.items():
                 if cls == choice:
                     print(f"{now}: Starting {name}")
-                    with open("utils\\last_task", "w") as file:
+                    with open("./utils/last_task", "w") as file:
                         file.write(name)
             
             task = choice()

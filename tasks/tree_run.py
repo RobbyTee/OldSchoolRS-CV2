@@ -15,7 +15,7 @@ from too_many_items import Pathing, Bank, Items, Menu, Objects, Misc
 import random
 
 SEED_VAULT = (62,173,124)
-# Make this a dictionary of sapling: time_to_harvest
+
 NORMAL_SAPLINGS = {
     Menu.willow_sapling: 240,
     Menu.maple_sapling: 320,
@@ -158,4 +158,4 @@ class TreeRun():
             elif self.state == TreeStates.FAILED:
                 log_event("Something went wrong")
                 log_state(self.state)
-                exit(1)            
+                exit(1)

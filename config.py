@@ -20,7 +20,7 @@ HERB_RUN = True
 MAHOGANY_TREES = False
 FUNGUS = False
 PICKPOCKET = False
-UNFINISHED_POTIONS = True
+UNFINISHED_POTIONS = False
 COMBINE_STUFF = False
 BATTLESTAFFS = False
 ## Must run this one manually with everything else being 'False'!
@@ -69,7 +69,7 @@ TOADFLAX = True
 ## Choose only one (for now)
 SUPER_ENERGY = False
 STAMINA = False
-GLASS_ORB = True
+GLASS_ORB = False
 CRUSH_BIRDNESTS = False
 SARADOMIN = False
 
