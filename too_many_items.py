@@ -73,6 +73,7 @@ class Items:
     fire_orb = r + "fire_orb.png"
     air_orb = r + "air_orb.png"
 
+    coins = r + "coins.png"
 
 class Bank:
     """
@@ -113,6 +114,7 @@ class Bank:
     withdraw_all = r + "withdraw_all.png"
     deposit_inventory = r + "deposit_inventory.png"
     deposit_equipment = r + "deposit_equipment.png"
+    notes = r + "notes.png"
 
     # Specific locations
     fossil_island = r + "fossil_island.png"

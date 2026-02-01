@@ -10,20 +10,33 @@ from runelite_library.logger import log_event, log_state
 from runelite_library.teleports import TeleportJewlery
 from runelite_library.window_management import capture_runelite_window
 from time import sleep
-from too_many_items import Pathing, Bank, Items, Menu, Objects, Misc
+from too_many_items import Pathing, Bank, Items, Menu, Objects, Misc, Runes
 
 import random
 
 SEED_VAULT = (62,173,124)
 
 NORMAL_SAPLINGS = {
-    Menu.willow_sapling: 240,
-    Menu.maple_sapling: 320,
-    Menu.yew_sapling: 400,
-    Menu.magic_sapling: 480
+    Menu.willow_sapling: {
+        "hours": 240,
+        "payment": None
+    },
+    Menu.maple_sapling: {
+        "hours": 320,
+        "payment": None
+    },
+    Menu.yew_sapling: {
+        "hours": 400,
+        "payment": None
+    },
+    Menu.magic_sapling: {
+        "hours": 480,
+        "payment": None
+    },
 }
 
 SAPLING_COLOR = (101, 149, 39)
+
 
 class TreeStates(Enum):
     INIT = auto()
@@ -32,6 +45,7 @@ class TreeStates(Enum):
     OPEN_SEED_VAULT = auto()
     WITHDRAW_SAPLINGS = auto()
     CHECK_INVENTORY = auto()
+    WITHDRAW_ITEMS = auto()
     SUCCESS = auto()
     FAILED = auto()
 
@@ -46,7 +60,8 @@ class TreeRun():
 
         while True:
             if self.state == TreeStates.INIT:
-                at_guild = wait(template=Bank.farming_guild)
+                sapling_count = None
+                at_guild = wait(template=Bank.farming_guild, timeout=0.5)
                 self.transition_state(TreeStates.OPEN_BANK)
                 continue
 
@@ -55,6 +70,10 @@ class TreeRun():
                 if not open_bank():
                     state = TreeStates.FAILED
                     log_state(state)
+                    continue
+                
+                if sapling_count:
+                    self.transition_state(TreeStates.WITHDRAW_ITEMS)
                     continue
 
                 templates = [Bank.deposit_inventory, Bank.deposit_equipment]
@@ -144,9 +163,27 @@ class TreeRun():
                     self.transition_state(TreeStates.WITHDRAW_SAPLINGS)
                     continue
 
-                self.transition_state(TreeStates.SUCCESS)
+                self.transition_state(TreeStates.OPEN_BANK)
                 continue
                 
+            
+            elif self.state == TreeStates.WITHDRAW_ITEMS:
+                items_to_withdraw = [
+                    Runes.air, Runes.water, Runes.fire, Runes.law
+                ]
+                click(wait(template=Bank.tab_all))
+                click(wait(template=Bank.quantity_10))
+                for item in items_to_withdraw:
+                    if not click(wait(template=item, timeout=0.5)):
+                        self.transition_state(TreeStates.FAILED)
+                        continue
+                
+                click(wait(template=Bank.quantity_all))
+                click(wait(template=Items.coins))
+
+
+                
+
 
             elif self.state == TreeStates.SUCCESS:
                 print("Done")

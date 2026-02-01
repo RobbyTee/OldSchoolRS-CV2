@@ -20,3 +20,6 @@ from runelite_library.teleports import TeleportSpells, TeleportJewlery
 
 
 activate_app("runelite")
+
+t = TreeRun()
+t.start()
