@@ -73,7 +73,13 @@ class Items:
     fire_orb = r + "fire_orb.png"
     air_orb = r + "air_orb.png"
 
+    # Payments
     coins = r + "coins.png"
+    basket_of_apples = r + "basket_of_apples.png"
+    basket_of_oranges = r + "basket_of_oranges.png"
+    coconut = r + "coconut.png"
+    cactus_spine = r + "cactus_spine.png"
+
 
 class Bank:
     """

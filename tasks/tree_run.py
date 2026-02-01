@@ -18,19 +18,19 @@ SEED_VAULT = (62,173,124)
 
 NORMAL_SAPLINGS = {
     Menu.willow_sapling: {
-        "hours": 240,
+        "minutes": 240,
         "payment": None
     },
     Menu.maple_sapling: {
-        "hours": 320,
+        "minutes": 320,
         "payment": None
     },
     Menu.yew_sapling: {
-        "hours": 400,
+        "minutes": 400,
         "payment": None
     },
     Menu.magic_sapling: {
-        "hours": 480,
+        "minutes": 480,
         "payment": None
     },
 }
@@ -46,6 +46,7 @@ class TreeStates(Enum):
     WITHDRAW_SAPLINGS = auto()
     CHECK_INVENTORY = auto()
     WITHDRAW_ITEMS = auto()
+    WITHDRAW_PAYMENT = auto()
     SUCCESS = auto()
     FAILED = auto()
 
@@ -175,13 +176,17 @@ class TreeRun():
                 click(wait(template=Bank.quantity_10))
                 for item in items_to_withdraw:
                     if not click(wait(template=item, timeout=0.5)):
+                        log_event(f"Could not click {item}.", level="error")
                         self.transition_state(TreeStates.FAILED)
                         continue
-                
                 click(wait(template=Bank.quantity_all))
                 click(wait(template=Items.coins))
+                self.transition_state(TreeStates.WITHDRAW_PAYMENT)
+                continue
 
 
+            elif self.state == TreeStates.WITHDRAW_PAYMENT:
+                pass
                 
 
 
