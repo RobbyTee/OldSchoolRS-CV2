@@ -19,19 +19,19 @@ SEED_VAULT = (62,173,124)
 NORMAL_SAPLINGS = {
     Menu.willow_sapling: {
         "minutes": 240,
-        "payment": None
+        "payment": Items.basket_of_apples
     },
     Menu.maple_sapling: {
         "minutes": 320,
-        "payment": None
+        "payment": Items.basket_of_oranges
     },
     Menu.yew_sapling: {
         "minutes": 400,
-        "payment": None
+        "payment": Items.coconut
     },
     Menu.magic_sapling: {
         "minutes": 480,
-        "payment": None
+        "payment": Items.cactus_spine
     },
 }
 
@@ -186,8 +186,11 @@ class TreeRun():
 
 
             elif self.state == TreeStates.WITHDRAW_PAYMENT:
-                pass
-                
+                click(wait(template=Bank.notes))
+                click(wait(template=Bank.quantity_all))
+                click(wait(template=NORMAL_SAPLINGS[sapling]['payment']))
+                self.transition_state(TreeStates.SUCCESS)
+                continue
 
 
             elif self.state == TreeStates.SUCCESS:
