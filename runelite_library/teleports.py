@@ -2,6 +2,7 @@
 # Example: Teleport to Falador and wait for a special tile to appear; return True
 
 # Jewelry will take an input of which teleport you choose from that jewelry
+# Jewelry(worn=False)
 
 # TODO: Set verification tiles.
 

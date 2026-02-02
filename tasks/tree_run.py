@@ -1,7 +1,6 @@
-from config import STAFF, HIGH_ALCHEMY
 from enum import Enum, auto
 from pyautogui import press, moveTo
-from runelite_library.area import play_area, inventory, whole, minimap
+from runelite_library.area import inventory, minimap
 from runelite_library.bank import open_bank, withdraw_skills_necklace
 from runelite_library.check_charges import log_use
 from runelite_library.filters import wait, find_all_by_template
@@ -47,6 +46,13 @@ class TreeStates(Enum):
     CHECK_INVENTORY = auto()
     WITHDRAW_ITEMS = auto()
     WITHDRAW_PAYMENT = auto()
+    FARMING_GUILD_TREE = auto() # Next project
+    VARROCK_TREE = auto() # WIP
+    GNOME_STRONGHOLD_TREE = auto() # WIP
+    FALADOR_TREE = auto() # WIP
+    TAVERLY_TREE = auto() # WIP
+    LUMBRIDGE_TREE = auto() # WIP
+    RETURN_TO_GRAND_EXCHANGE = auto() # WIP
     SUCCESS = auto()
     FAILED = auto()
 
@@ -170,7 +176,8 @@ class TreeRun():
             
             elif self.state == TreeStates.WITHDRAW_ITEMS:
                 items_to_withdraw = [
-                    Runes.air, Runes.water, Runes.fire, Runes.law
+                    Runes.air, Runes.air, Runes.water, Runes.fire, 
+                    Runes.law, Items.taverly_tablet
                 ]
                 click(wait(template=Bank.tab_all))
                 click(wait(template=Bank.quantity_10))
@@ -181,7 +188,6 @@ class TreeRun():
                         continue
                 click(wait(template=Bank.quantity_all))
                 click(wait(template=Items.coins))
-                click(wait(template=Items.taverly_tablet))
                 self.transition_state(TreeStates.WITHDRAW_PAYMENT)
                 continue
 
