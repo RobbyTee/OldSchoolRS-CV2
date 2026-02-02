@@ -181,6 +181,7 @@ class TreeRun():
                         continue
                 click(wait(template=Bank.quantity_all))
                 click(wait(template=Items.coins))
+                click(wait(template=Items.taverly_tablet))
                 self.transition_state(TreeStates.WITHDRAW_PAYMENT)
                 continue
 
