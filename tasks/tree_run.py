@@ -35,7 +35,7 @@ NORMAL_SAPLINGS = {
 }
 
 SAPLING_COLOR = (101, 149, 39)
-
+FARMER = (184, 45, 144)
 
 class TreeStates(Enum):
     INIT = auto()
@@ -145,7 +145,7 @@ class TreeRun():
                 sapling_coordinates = wait(template=sapling)
                 right_click(sapling_coordinates)
                 
-                if click(wait(template=Bank.withdraw_5, timeout=0.5)):
+                if click(wait(template=Bank.withdraw_6, timeout=0.5)):
                     sleep(2)
                     self.transition_state(TreeStates.CHECK_INVENTORY)
                     continue
@@ -164,7 +164,7 @@ class TreeRun():
                                                          template_path=Items.sapling,
                                                          bounds=inventory.bounds))
                 #print(f"Saplings in inventory = {sapling_count}")
-                if sapling_count < 5:
+                if sapling_count < 6:
                     NORMAL_SAPLINGS.pop(sapling)
                     click(wait(template=Bank.deposit_inventory))
                     self.transition_state(TreeStates.WITHDRAW_SAPLINGS)
@@ -177,7 +177,7 @@ class TreeRun():
             elif self.state == TreeStates.WITHDRAW_ITEMS:
                 items_to_withdraw = [
                     Runes.air, Runes.air, Runes.water, Runes.fire, 
-                    Runes.law, Items.taverly_tablet
+                    Runes.law, Runes.earth, Items.taverly_tablet
                 ]
                 click(wait(template=Bank.tab_all))
                 click(wait(template=Bank.quantity_10))
@@ -188,14 +188,31 @@ class TreeRun():
                         continue
                 click(wait(template=Bank.quantity_all))
                 click(wait(template=Items.coins))
+
+                click(wait(template=Bank.tab_iii))
+                click(wait(template=Items.spade))
                 self.transition_state(TreeStates.WITHDRAW_PAYMENT)
                 continue
 
 
             elif self.state == TreeStates.WITHDRAW_PAYMENT:
+                click(wait(template=Bank.tab_all))
                 click(wait(template=Bank.notes))
                 click(wait(template=Bank.quantity_all))
                 click(wait(template=NORMAL_SAPLINGS[sapling]['payment']))
+                self.transition_state(TreeStates.FARMING_GUILD_TREE)
+                continue
+
+
+            elif self.state == TreeStates.FARMING_GUILD_TREE:
+                steps_to_tree = [
+                    Pathing.step_2, Pathing.step_1, Pathing.step_10
+                ]
+
+                for color in steps_to_tree:
+                    click(wait(rgb_color=color, bounds=minimap.bounds))
+                    sleep(4)
+
                 self.transition_state(TreeStates.SUCCESS)
                 continue
 

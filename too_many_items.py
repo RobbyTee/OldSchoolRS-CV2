@@ -116,6 +116,8 @@ class Bank:
     # Misc Bank
     bank_pin_screen = r + "bank_pin_screen.png"
     withdraw_5 = r + "withdraw_5.png"
+    withdraw_6 = r + "withdraw_6.png"
+    withdraw_10 = r + "withdraw_10.png"
     withdraw_14 = r + "withdraw_14.png"
     withdraw_40 = r + "withdraw_40.png"
     withdraw_x = r + "withdraw_x.png"
@@ -197,8 +199,6 @@ class Menu:
     magic_sapling = r + "magic_sapling.png"
     ## Mouse tooltip
     diseased_herbs = r + "diseased_herbs.png"
-
-
 
 
 class Misc:
@@ -306,6 +306,9 @@ class Global_Colors:
 
     altar = (244, 138, 87)
     
+    # Farming Patches
+    tree_patch = (115, 190, 0)
+
 
 class Pathing:
     """
