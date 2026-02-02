@@ -80,6 +80,8 @@ class Items:
     coconut = r + "coconut.png"
     cactus_spine = r + "cactus_spine.png"
 
+    # Teleport tablets
+    taverly_tablet = r + "taverly_tablet.png"
 
 class Bank:
     """
